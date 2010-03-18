@@ -64,13 +64,13 @@ lst.lib/lstPrev.c
 lst.lib/lstRemove.c
 lst.lib/lstReplace.c
 lst.lib/lstSucc.c
-lst.lib/makefile.boot.in
 machine.sh
 main.c
 make.1
+bmake.1
 make.c
 make.h
-makefile.boot.in
+make-bootstrap.sh.in
 missing/sys/cdefs.h
 mkdeps.sh
 nonints.h

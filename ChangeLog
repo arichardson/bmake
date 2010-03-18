@@ -1,3 +1,22 @@
+2010-03-18  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* make-bootstrap.sh.in: extract MAKE_VERSION from Makefile
+
+	* os.sh,arch.c: patch for Haiku from joerg at netbsd
+
+2010-03-17  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100222
+	* Merge with NetBSD make, pick up
+	  o better error msg for .for with mutiple inter vars
+	
+	* boot-strap: 
+	  o use make-bootstrap.sh from joerg at netbsd
+	    to avoid the need for a native make when bootstrapping.
+	  o add "" everywhere ;-)
+	  o if /usr/share/tmac/andoc.tmac exists install nroff bmake.1
+	    otherwise the pre-formated version.
+
 2010-01-04  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100102

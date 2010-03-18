@@ -139,6 +139,19 @@ __RCSID("$NetBSD: arch.c,v 1.59 2009/01/23 21:58:27 dsl Exp $");
 #include    <ctype.h>
 #ifdef HAVE_AR_H
 #include    <ar.h>
+#else
+struct ar_hdr {
+        char ar_name[16];               /* name */
+        char ar_date[12];               /* modification time */
+        char ar_uid[6];                 /* user id */
+        char ar_gid[6];                 /* group id */
+        char ar_mode[8];                /* octal file permissions */
+        char ar_size[10];               /* size in bytes */
+#ifndef ARFMAG
+#define ARFMAG  "`\n"
+#endif
+        char ar_fmag[2];                /* consistency check */
+};
 #endif
 #if defined(HAVE_RANLIB_H) && !(defined(__ELF__) || defined(NO_RANLIB))
 #include    <ranlib.h>
@@ -203,6 +216,12 @@ static int ArchSVR4Entry(Arch *, char *, size_t, FILE *);
 #endif
 #ifndef  AR_FMAG
 # define AR_FMAG ar_fmag
+#endif
+#ifndef ARMAG
+# define ARMAG	"!<arch>\n"
+#endif
+#ifndef SARMAG
+# define SARMAG	8
 #endif
 
 #define AR_MAX_NAME_LEN	    (sizeof(arh.AR_NAME)-1)

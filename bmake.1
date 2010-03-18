@@ -33,7 +33,7 @@
 .Dt MAKE 1
 .Os
 .Sh NAME
-.Nm make
+.Nm bmake
 .Nd maintain program dependencies
 .Sh SYNOPSIS
 .Nm
@@ -1829,18 +1829,7 @@ obscure problems using them in .if statements.
 .Sh SEE ALSO
 .Xr mkdep 1
 .Sh HISTORY
-A
 .Nm
-command appeared in
-.At v7 .
-.Sh BUGS
-The
-.Nm
-syntax is difficult to parse without actually acting of the data.
-For instance finding the end of a variable use should involve scanning each
-the modifiers using the correct terminator for each field.
-In many places
-.Nm
-just counts {} and () in order to find the end of a variable expansion.
-.Pp
-There is no way of escaping a space character in a filename.
+is derived from NetBSD's
+.Xr make 1 .
+It uses autoconf to facilitate portability to other platforms.

@@ -3,7 +3,7 @@
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.22 2009/02/08 22:17:02 sjg Exp $
+ *	$Id: util.c,v 1.23 2010/01/11 21:19:55 sjg Exp $
  */
 
 #include "make.h"
@@ -385,7 +385,7 @@ getcwd(path, sz)
 }
 #endif
 
-#if defined(sun) && defined(__svr4__)
+#if defined(sun) && defined(__svr4__) && !defined(FORCE_POSIX_SIGNALS)
 #include <signal.h>
 
 /* turn into bsd signals */

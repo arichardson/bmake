@@ -1,10 +1,10 @@
 dnl
 dnl RCSid:
-dnl	$Id: configure.in,v 1.31 2009/10/30 23:39:35 sjg Exp $
+dnl	$Id: configure.in,v 1.32 2010/03/18 04:04:51 sjg Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script
 dnl
-AC_INIT(makefile.boot.in)
+AC_INIT([bmake], [20090909], [sjg@NetBSD.org])
 AC_CONFIG_HEADER(config.h)
 
 dnl
@@ -116,7 +116,7 @@ AC_CHECK_FUNCS( \
 	waitpid \
 	)
 dnl AC_REPLACE_FUNCS(setenv getenv)
-AC_REPLACE_FUNCS(getenv)
+AC_REPLACE_FUNCS([getenv])
 
 AC_CHECK_LIB([util], [emalloc],
     [ AC_CHECK_LIB([util], [erealloc],
@@ -294,23 +294,14 @@ AC_SUBST(default_sys_path)
 AC_SUBST(INSTALL)
 AC_SUBST(GCC)
 AC_SUBST(diff_u)
-AC_OUTPUT(Makefile makefile.boot lst.lib/makefile.boot unit-tests/Makefile)
+AC_OUTPUT(Makefile make-bootstrap.sh unit-tests/Makefile)
 
 cat <<EOF
 
 You can now run
 
-	make -f makefile.boot bootstrap
+	./make-bootstrap.sh
 
-to produce a fully functional bmake. You can then use:
-
-	make -f makefile.boot install
-
-for an initial installation.  If you already have macros installed 
-you can use:
-
-	./bmake -f Makefile
-
-to install etc.
+to produce a fully functional bmake.
 
 EOF
