@@ -395,12 +395,23 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      bbmmaakkee and cannot be confused with the special target with
                      the same name.
 
+     _._M_A_K_E_._D_E_P_E_N_D_F_I_L_E
+                     Names the makefile (default `_._d_e_p_e_n_d') from which gener-
+                     ated dependencies are read.
+
      _._M_A_K_E_._E_X_P_O_R_T_E_D  The list of variables exported by bbmmaakkee.
+
+     _._M_A_K_E_._M_A_K_E_F_I_L_E___P_R_E_F_E_R_E_N_C_E
+                     The ordered list of makefile names (default `_m_a_k_e_f_i_l_e',
+                     `_M_a_k_e_f_i_l_e') that bbmmaakkee will look for.
 
      _._M_A_K_E_._M_A_K_E_F_I_L_E_S
                      The list of makefiles read by bbmmaakkee, which is useful for
                      tracking dependencies.  Each makefile is recorded only
                      once, regardless of the number of times read.
+
+     _._M_A_K_E_._M_O_D_E      Processed after reading all makefiles.  Can affect the
+                     mode that bbmmaakkee runs in.  Currently just `_c_o_m_p_a_t' mode.
 
      _._M_A_K_E_._L_E_V_E_L     The recursion depth of bbmmaakkee.  The initial instance of
                      bbmmaakkee will be 0, and an incremented value is put into the
@@ -760,6 +771,10 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
      Conditional expressions are also preceded by a single dot as the first
      character of a line.  The possible conditionals are as follows:
 
+     ..eerrrroorr _m_e_s_s_a_g_e
+             The message is printed along with the name of the makefile and
+             line number, then bbmmaakkee will exit.
+
      ..eexxppoorrtt _v_a_r_i_a_b_l_e _._._.
              Export the specified global variable.  If no variable list is
              provided, all globals are exported except for internal variables
@@ -768,6 +783,10 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
 
              Appending a variable name to _._M_A_K_E_._E_X_P_O_R_T_E_D is equivalent to
              exporting a variable.
+
+     ..iinnffoo _m_e_s_s_a_g_e
+             The message is printed along with the name of the makefile and
+             line number.
 
      ..uunneexxppoorrtt _v_a_r_i_a_b_l_e _._._.
              The opposite of `.export'.  The specified global _v_a_r_i_a_b_l_e will be
@@ -795,6 +814,10 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
      ..uunnddeeff _v_a_r_i_a_b_l_e
              Un-define the specified global variable.  Only global variables
              may be un-defined.
+
+     ..wwaarrnniinngg _m_e_s_s_a_g_e
+             The message prefixed by `_w_a_r_n_i_n_g_:' is printed along with the name
+             of the makefile and line number.
 
      ..iiff [!]_e_x_p_r_e_s_s_i_o_n [_o_p_e_r_a_t_o_r _e_x_p_r_e_s_s_i_o_n _._._.]
              Test the value of an expression.
@@ -994,6 +1017,10 @@ SSPPEECCIIAALL TTAARRGGEETTSS
      ..EENNDD     Any command lines attached to this target are executed after
               everything else is done.
 
+     ..EERRRROORR   Any command lines attached to this target are executed when
+              another target fails.  The ..EERRRROORR__TTAARRGGEETT variable is set to the
+              target that failed.  See also MMAAKKEE__PPRRIINNTT__VVAARR__OONN__EERRRROORR.
+
      ..IIGGNNOORREE  Mark each of the sources with the ..IIGGNNOORREE attribute.  If no
               sources are specified, this is the equivalent of specifying the
               --ii option.
@@ -1133,4 +1160,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.0_STABLE              November 15, 2009             NetBSD 5.0_STABLE
+NetBSD 5.0_STABLE                April 6, 2010               NetBSD 5.0_STABLE

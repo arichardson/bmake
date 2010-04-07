@@ -1,3 +1,16 @@
+2010-04-06  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100406
+	* Merge with NetBSD make, pick up
+	  o fix for compat mode "Error code" going to debug_file.
+	  o fix for .ALLSRC being populated twice.
+	  o support for .info, .warning and .error directives
+	  o .MAKE.MODE to control make's operational mode
+	  o .MAKE.MAKEFILE_PREFERENCE to control the preferred makefile
+	    name(s).
+	  o .MAKE.DEPENDFILE to control the name of the depend file
+	  o .ERROR target - run on failure.
+	
 2010-03-18  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* make-bootstrap.sh.in: extract MAKE_VERSION from Makefile
