@@ -1,10 +1,10 @@
 dnl
 dnl RCSid:
-dnl	$Id: configure.in,v 1.32 2010/03/18 04:04:51 sjg Exp $
+dnl	$Id: configure.in,v 1.33 2010/04/08 17:52:39 sjg Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script
 dnl
-AC_INIT([bmake], [20090909], [sjg@NetBSD.org])
+AC_INIT([bmake], [20100408], [sjg@NetBSD.org])
 AC_CONFIG_HEADER(config.h)
 
 dnl

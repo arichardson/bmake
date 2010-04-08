@@ -1,3 +1,10 @@
+2010-04-08  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100408
+	* Merge with NetBSD make, pick up
+	  o unit tests for .ERROR, .error
+	  o fix for .ERROR to ensure it cannot be default target.
+
 2010-04-06  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100406
