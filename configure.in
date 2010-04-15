@@ -1,10 +1,10 @@
 dnl
 dnl RCSid:
-dnl	$Id: configure.in,v 1.33 2010/04/08 17:52:39 sjg Exp $
+dnl	$Id: configure.in,v 1.34 2010/04/14 20:34:45 sjg Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script
 dnl
-AC_INIT([bmake], [20100408], [sjg@NetBSD.org])
+AC_INIT([bmake], [20100414], [sjg@NetBSD.org])
 AC_CONFIG_HEADER(config.h)
 
 dnl
@@ -115,8 +115,12 @@ AC_CHECK_FUNCS( \
 	wait4 \
 	waitpid \
 	)
-dnl AC_REPLACE_FUNCS(setenv getenv)
-AC_REPLACE_FUNCS([getenv])
+
+dnl functions which we may need to provide
+AC_REPLACE_FUNCS( \
+	getenv \
+	realpath \
+	)
 
 AC_CHECK_LIB([util], [emalloc],
     [ AC_CHECK_LIB([util], [erealloc],

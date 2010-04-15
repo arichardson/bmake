@@ -30,6 +30,7 @@ hash.h
 install-sh
 job.c
 job.h
+realpath.c
 strlist.c
 strlist.h
 trace.c

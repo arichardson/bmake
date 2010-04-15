@@ -1,3 +1,11 @@
+2010-04-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100414
+	* Merge with NetBSD make, pick up
+	  o use realpath to resolve argv[0] (for .MAKE) if needed.
+	  o add realpath from libc.
+	  o add :tA to resolve variable via realpath(3) if possible.
+
 2010-04-08  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100408

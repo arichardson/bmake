@@ -583,12 +583,16 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::RR   Replaces each word in the variable with everything but its suffix.
 
+     ::ttAA  Attempt to convert variable to an absolute path using realpath(3),
+          if that fails, the value is unchanged.
+
      ::ttll  Converts variable to lower-case letters.
 
      ::ttss_c
           Words in the variable are normally separated by a space on expan-
           sion.  This modifier sets the separator to the character _c.  If _c is
-          omitted, then no separator is used.
+          omitted, then no separator is used.  The common escapes (including
+          octal numeric codes), work as expected.
 
      ::ttuu  Converts variable to upper-case letters.
 
@@ -1160,4 +1164,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.0_STABLE                April 6, 2010               NetBSD 5.0_STABLE
+NetBSD 5.0_STABLE               April 14, 2010               NetBSD 5.0_STABLE
