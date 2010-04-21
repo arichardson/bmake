@@ -1,3 +1,11 @@
+2010-04-20  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100420
+	* Merge with NetBSD make, pick up
+	  o fix for variable realpath() behavior.
+	    we have to stat(2) the result to be sure.
+	  o fix for .export (all) when nested vars use :sh
+	
 2010-04-14  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100414
