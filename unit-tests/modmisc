@@ -1,8 +1,10 @@
-# $Id: modmisc,v 1.1.1.3 2010/04/22 19:15:58 sjg Exp $
+# $Id: modmisc,v 1.1.1.4 2010/04/23 21:58:56 sjg Exp $
 #
 # miscellaneous modifier tests
 
-path=:/bin:/usr/bin::/:.:/user/bin:.
+# do not put any dirs in this list which exist on some
+# but not all target systems - an exists() check is below.
+path=:/bin:/tmp::/:.:/no/such/dir:.
 # strip cwd from path.
 MOD_NODOT=S/:/ /g:N.:ts:
 # and decorate, note that $'s need to be doubled. Also note that 

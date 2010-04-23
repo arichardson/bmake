@@ -1,3 +1,12 @@
+2010-04-23  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100423
+	  Merge with NetBSD make, pick up
+	  o updated unit tests for Haiku (this time for sure).
+	* boot-strap: based on patch from joerg 
+	  honor --with-default-sys-path better.
+	* boot-strap: remove mention of --with-prefix-sys-path
+	
 2010-04-22  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100422
