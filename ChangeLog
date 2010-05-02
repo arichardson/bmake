@@ -1,3 +1,9 @@
+2010-04-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100430
+	  Merge with NetBSD make, pick up
+	  o fflush stdout before writing to stdout
+	
 2010-04-23  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100423

@@ -53,7 +53,7 @@
 #	Simon J. Gerraty <sjg@crufty.net>
 
 # RCSid:
-#	$Id: boot-strap,v 1.31 2010/04/23 22:13:40 sjg Exp $
+#	$Id: boot-strap,v 1.32 2010/04/26 00:00:11 sjg Exp $
 #
 #	@(#) Copyright (c) 2001 Simon J. Gerraty
 #
@@ -294,12 +294,16 @@ if [ -s "${mksrc:-/dev/null}/install-mk" ]; then
         esac
 fi
 export MAKESYSPATH
-./bmake test || exit 1
-
+if [ "$mksrc" ]; then
+        ./bmake test || exit 1
+else
+        # assume nothing
+        ./bmake -r -m / test || exit 1
+fi
 # If -q given, we don't want all the install instructions
 $quiet exit 0
 
-make_version=`./bmake -f ./Makefile -V MAKE_VERSION | ( read one two; echo $one )`
+make_version=`./bmake -r -m / -f ./Makefile -V MAKE_VERSION | ( read one two; echo $one )`
 bmake_version=bmake-$make_version
 
 if [ -s /usr/share/tmac/andoc.tmac ]; then
