@@ -1,3 +1,11 @@
+2010-05-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100505
+	  Merge with NetBSD make, pick up
+	  o fix for missed SIGCHLD when compiled with SunPRO
+	    actually for bmake defining FORCE_POSIX_SIGNALS would have
+	    done the job.
+
 2010-04-30  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100430
