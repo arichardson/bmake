@@ -1,3 +1,10 @@
+2010-05-23  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100520
+	  Merge with NetBSD make, pick up
+	  o back to using realpath on argv[0] 
+	    but only if contains '/' and does not start with '/'.
+
 2010-05-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* boot-strap: use absolute path for bmake when running tests.
