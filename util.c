@@ -1,23 +1,24 @@
-/*	$NetBSD: util.c,v 1.49 2010/05/05 07:05:33 sjg Exp $	*/
+/*	$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $	*/
 
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.25 2010/05/05 07:22:45 sjg Exp $
+ *	$Id: util.c,v 1.26 2010/06/06 01:23:24 sjg Exp $
  */
 
 #include "make.h"
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: util.c,v 1.49 2010/05/05 07:05:33 sjg Exp $";
+static char rcsid[] = "$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $";
 #else
 #ifndef lint
-__RCSID("$NetBSD: util.c,v 1.49 2010/05/05 07:05:33 sjg Exp $");
+__RCSID("$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $");
 #endif
 #endif
 
 #include <errno.h>
 #include <time.h>
+#include <signal.h>
 
 #if !defined(HAVE_STRERROR)
 extern int errno, sys_nerr;
@@ -235,24 +236,6 @@ random(void)
 }
 #endif
 
-/* turn into bsd signals */
-void (*
-signal(int s, void (*a)(int)))(int)
-{
-    struct sigvec osv, sv;
-
-    (void)sigvector(s, NULL, &osv);
-    sv = osv;
-    sv.sv_handler = a;
-#ifdef SV_BSDSIG
-    sv.sv_flags = SV_BSDSIG;
-#endif
-
-    if (sigvector(s, &sv, NULL) == -1)
-        return (BADSIG);
-    return (osv.sv_handler);
-}
-
 #if !defined(__hpux__) && !defined(__hpux)
 int
 utimes(char *file, struct timeval tvp[2])
@@ -385,17 +368,9 @@ getcwd(path, sz)
 }
 #endif
 
-#if !defined(FORCE_POSIX_SIGNALS)
-/*
- * If FORCE_POSIX_SIGNALS is defined
- * then sigcompat will have done this.
- */
-#if defined(sun) && (defined(__svr4__) || defined(__SVR4))
-#include <signal.h>
-
-/* turn into bsd signals */
+/* force posix signals */
 void (*
-signal(int s, void (*a)(int)))(int)
+bmake_signal(int s, void (*a)(int)))(int)
 {
     struct sigaction sa, osa;
 
@@ -408,8 +383,6 @@ signal(int s, void (*a)(int)))(int)
     else
 	return osa.sa_handler;
 }
-#endif
-#endif
 
 #if !defined(HAVE_VSNPRINTF) || !defined(HAVE_VASPRINTF)
 #include <stdarg.h>

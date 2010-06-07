@@ -1,3 +1,19 @@
+2010-06-06  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100606
+	  Merge with NetBSD make, pick up
+	  o man page update
+
+2010-06-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100605
+	  Merge with NetBSD make, pick up
+	  o use bmake_signal() which is a wrapper around sigaction() 
+	    in place of signal()
+	  o add .export-env to allow exporting variables to environment
+	    without tracking (so no re-export when the internal value is
+	    changed).
+	
 2010-05-24  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100524

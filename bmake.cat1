@@ -487,8 +487,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
                      Variable expansion is performed on the value before it's
                      used, so expressions such as
-                           ${.CURDIR:C,^/usr/src,/var/obj,}
-                     may be used.
+                           ${.CURDIR:S,^/usr/src,/var/obj,}
+                     may be used.  This is especially useful with
+                     `MAKEOBJDIR'.
 
                      `_._O_B_J_D_I_R' may be modified in the makefile as a global
                      variable.  In all cases, bbmmaakkee will chdir(2) to `_._O_B_J_D_I_R'
@@ -789,6 +790,11 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
 
              Appending a variable name to _._M_A_K_E_._E_X_P_O_R_T_E_D is equivalent to
              exporting a variable.
+
+     ..eexxppoorrtt--eennvv _v_a_r_i_a_b_l_e _._._.
+             The same as `.export', except that the variable is not appended
+             to _._M_A_K_E_._E_X_P_O_R_T_E_D.  This allows exporting a value to the environ-
+             ment which is different from that used by bbmmaakkee internally.
 
      ..iinnffoo _m_e_s_s_a_g_e
              The message is printed along with the name of the makefile and
@@ -1166,4 +1172,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.0_STABLE               April 21, 2010               NetBSD 5.0_STABLE
+NetBSD 5.0_STABLE                June 6, 2010                NetBSD 5.0_STABLE
