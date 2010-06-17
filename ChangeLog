@@ -1,3 +1,11 @@
+2010-06-16  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100616
+	  Merge with NetBSD make, pick up
+	  o man page update
+	  o call PrintOnError from JobFinish when we detect an error we
+	    are not ignoring. 
+	
 2010-06-06  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100606
