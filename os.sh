@@ -17,7 +17,7 @@
 #	Simon J. Gerraty <sjg@crufty.net>
 
 # RCSid:
-#	$Id: os.sh,v 1.43 2010/03/18 15:22:32 sjg Exp $
+#	$Id: os.sh,v 1.44 2010/06/29 15:37:21 sjg Exp $
 #
 #	@(#) Copyright (c) 1994 Simon J. Gerraty
 #
@@ -41,6 +41,12 @@ OSMAJOR=`IFS=.; set $OSREL; echo $1`
 MACHINE=`uname -m`
 MACHINE_ARCH=`uname -p 2>/dev/null || echo $MACHINE`
 
+# there is at least one case of `uname -p` outputting
+# a bunch of usless drivel
+case "$MACHINE_ARCH" in
+*[!A-Za-z0-9_-]*) MACHINE_ARCH="$MACHINE";;
+esac
+        
 # we need this here, and it is not always available...
 Which() {
 	case "$1" in

@@ -1,3 +1,8 @@
+2010-06-28  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100618
+	* os.sh (MACHINE_ARCH): watch out for drivel from uname -p
+
 2010-06-16  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20100616
