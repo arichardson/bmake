@@ -385,7 +385,7 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
              _._O_O_D_A_T_E   The list of sources for this target that were deemed
                        out-of-date; also known as `_?'.
 
-             _._P_R_E_F_I_X   The file prefix of the file, containing only the file
+             _._P_R_E_F_I_X   The file prefix of the target, containing only the file
                        portion, no suffix or preceding directory components;
                        also known as `_*'.
 
@@ -543,6 +543,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      is disabled if `MAKEOBJDIRPREFIX' is set or `MAKEOBJDIR'
                      contains a variable transform.  `PWD' is set to the value
                      of `_._O_B_J_D_I_R' for all programs which bbmmaakkee executes.
+
+     .TARGETS        The list of targets explicitly specified on the command
+                     line, if any.
 
      VPATH           Colon-separated (``:'') lists of directories that bbmmaakkee
                      will search for files.  The variable is supported for
@@ -996,7 +999,8 @@ SSPPEECCIIAALL SSOOUURRCCEESS ((AATTTTRRIIBBUUTTEESS))
 
      ..PPHHOONNYY    The target does not correspond to an actual file; it is always
                considered to be out of date, and will not be created with the
-               --tt option.
+               --tt option.  Suffix-transformation rules are not applied to
+               ..PPHHOONNYY targets.
 
      ..PPRREECCIIOOUUSS
                When bbmmaakkee is interrupted, it normally removes any partially
@@ -1199,4 +1203,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.0_STABLE                June 9, 2010                NetBSD 5.0_STABLE
+NetBSD 5.0_STABLE                June 30, 2010               NetBSD 5.0_STABLE

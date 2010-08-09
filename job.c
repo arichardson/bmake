@@ -1,4 +1,4 @@
-/*	$NetBSD: job.c,v 1.151 2010/06/17 03:36:05 sjg Exp $	*/
+/*	$NetBSD: job.c,v 1.154 2010/08/07 21:28:40 sjg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
@@ -70,14 +70,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: job.c,v 1.151 2010/06/17 03:36:05 sjg Exp $";
+static char rcsid[] = "$NetBSD: job.c,v 1.154 2010/08/07 21:28:40 sjg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)job.c	8.2 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: job.c,v 1.151 2010/06/17 03:36:05 sjg Exp $");
+__RCSID("$NetBSD: job.c,v 1.154 2010/08/07 21:28:40 sjg Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -357,7 +357,7 @@ static sigset_t caught_signals;	/* Set of signals we handle */
 
 static void JobChildSig(int);
 static void JobContinueSig(int);
-static Job *JobFindPid(int, int);
+static Job *JobFindPid(int, int, Boolean);
 static int JobPrintCommand(void *, void *);
 static int JobSaveCommand(void *, void *);
 static void JobClose(Job *);
@@ -629,7 +629,7 @@ JobPassSig_suspend(int signo)
  *-----------------------------------------------------------------------
  */
 static Job *
-JobFindPid(int pid, int status)
+JobFindPid(int pid, int status, Boolean isJobs)
 {
     Job *job;
 
@@ -637,7 +637,7 @@ JobFindPid(int pid, int status)
 	if ((job->job_state == status) && job->pid == pid)
 	    return job;
     }
-    if (DEBUG(JOB))
+    if (DEBUG(JOB) && isJobs)
 	job_table_dump("no pid");
     return NULL;
 }
@@ -726,6 +726,7 @@ JobPrintCommand(void *cmdp, void *jobp)
 	    shutUp = DEBUG(LOUD) ? FALSE : TRUE;
 	    break;
 	case '-':
+	    job->flags |= JOB_IGNERR;
 	    errOff = TRUE;
 	    break;
 	case '+':
@@ -774,7 +775,7 @@ JobPrintCommand(void *cmdp, void *jobp)
     }
 
     if (errOff) {
-	if ( !(job->flags & JOB_IGNERR) && !noSpecials) {
+	if (!noSpecials) {
 	    if (commandShell->hasErrCtl) {
 		/*
 		 * we don't want the error-control commands showing
@@ -1032,7 +1033,7 @@ JobFinish (Job *job, WAIT_T status)
 		(void)printf("*** [%s] Error code %d%s\n",
 				job->node->name,
 			       WEXITSTATUS(status),
-			       (job->flags & JOB_IGNERR) ? "(ignored)" : "");
+			       (job->flags & JOB_IGNERR) ? " (ignored)" : "");
 		if (job->flags & JOB_IGNERR) {
 		    WAIT_STATUS(status) = 0;
 		} else {
@@ -1246,11 +1247,11 @@ Job_CheckCommands(GNode *gn, void (*abortProc)(const char *, ...))
 	    }
 
 	    if (gn->type & OP_OPTIONAL) {
-		(void)fprintf(stdout, "%s%s %s(ignored)\n", progname,
+		(void)fprintf(stdout, "%s%s %s (ignored)\n", progname,
 		    msg, gn->name);
 		(void)fflush(stdout);
 	    } else if (keepgoing) {
-		(void)fprintf(stdout, "%s%s %s(continuing)\n", progname,
+		(void)fprintf(stdout, "%s%s %s (continuing)\n", progname,
 		    msg, gn->name);
 		(void)fflush(stdout);
   		return FALSE;
@@ -1566,6 +1567,7 @@ JobStart(GNode *gn, int flags)
 	 * also dead...
 	 */
 	if (!cmdsOK) {
+	    PrintOnError(gn, NULL);	/* provide some clue */
 	    DieHorribly();
 	}
 
@@ -1940,7 +1942,6 @@ void
 Job_CatchChildren(void)
 {
     int    	  pid;	    	/* pid of dead child */
-    Job		  *job;	    	/* job descriptor for dead child */
     WAIT_T	  status;   	/* Exit/termination status */
 
     /*
@@ -1954,41 +1955,60 @@ Job_CatchChildren(void)
 	    (void)fprintf(debug_file, "Process %d exited/stopped status %x.\n", pid,
 	      WAIT_STATUS(status));
 	}
+	JobReapChild(pid, status, TRUE);
+    }
+}
 
-	job = JobFindPid(pid, JOB_ST_RUNNING);
-	if (job == NULL) {
+/*
+ * It is possible that wait[pid]() was called from elsewhere,
+ * this lets us reap jobs regardless.
+ */
+void
+JobReapChild(pid_t pid, WAIT_T status, Boolean isJobs)
+{
+    Job		  *job;	    	/* job descriptor for dead child */
+
+    /*
+     * Don't even bother if we know there's no one around.
+     */
+    if (jobTokensRunning == 0)
+	return;
+
+    job = JobFindPid(pid, JOB_ST_RUNNING, isJobs);
+    if (job == NULL) {
+	if (isJobs) {
 	    if (!lurking_children)
 		Error("Child (%d) status %x not in table?", pid, status);
-	    continue;
 	}
-	if (WIFSTOPPED(status)) {
-	    if (DEBUG(JOB)) {
-		(void)fprintf(debug_file, "Process %d (%s) stopped.\n",
-				job->pid, job->node->name);
-	    }
-	    if (!make_suspended) {
-		    switch (WSTOPSIG(status)) {
-		    case SIGTSTP:
-			(void)printf("*** [%s] Suspended\n", job->node->name);
-			break;
-		    case SIGSTOP:
-			(void)printf("*** [%s] Stopped\n", job->node->name);
-			break;
-		    default:
-			(void)printf("*** [%s] Stopped -- signal %d\n",
-			    job->node->name, WSTOPSIG(status));
-		    }
-		    job->job_suspended = 1;
-	    }
-	    (void)fflush(stdout);
-	    continue;
-	}
-
-	job->job_state = JOB_ST_FINISHED;
-	job->exit_status = WAIT_STATUS(status);
-
-	JobFinish(job, status);
+	return;				/* not ours */
     }
+    if (WIFSTOPPED(status)) {
+	if (DEBUG(JOB)) {
+	    (void)fprintf(debug_file, "Process %d (%s) stopped.\n",
+			  job->pid, job->node->name);
+	}
+	if (!make_suspended) {
+	    switch (WSTOPSIG(status)) {
+	    case SIGTSTP:
+		(void)printf("*** [%s] Suspended\n", job->node->name);
+		break;
+	    case SIGSTOP:
+		(void)printf("*** [%s] Stopped\n", job->node->name);
+		break;
+	    default:
+		(void)printf("*** [%s] Stopped -- signal %d\n",
+			     job->node->name, WSTOPSIG(status));
+	    }
+	    job->job_suspended = 1;
+	}
+	(void)fflush(stdout);
+	return;
+    }
+
+    job->job_state = JOB_ST_FINISHED;
+    job->exit_status = WAIT_STATUS(status);
+
+    JobFinish(job, status);
 }
 
 /*-
