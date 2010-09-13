@@ -3,7 +3,7 @@
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.26 2010/06/06 01:23:24 sjg Exp $
+ *	$Id: util.c,v 1.27 2010/09/13 20:06:33 sjg Exp $
  */
 
 #include "make.h"
@@ -525,4 +525,91 @@ killpg(int pid, int sig)
     return kill(-pid, sig);
 }
 #endif
+#endif
+
+#if !defined(HAVE_WARNX)
+static void
+vwarnx(const char *fmt, va_list args)
+{
+	fprintf(stderr, "%s: ", progname);
+	if ((fmt)) {
+		vfprintf(stderr, fmt, args);
+		fprintf(stderr, ": ");
+	}
+}
+#endif
+
+#if !defined(HAVE_WARN)
+static void
+vwarn(const char *fmt, va_list args)
+{
+	vwarnx(fmt, args);
+	fprintf(stderr, "%s\n", strerror(errno));
+}
+#endif
+
+#if !defined(HAVE_VERR)
+static void
+verr(int eval, const char *fmt, va_list args)
+{
+	vwarn(fmt, args);
+	exit(eval);
+}
+#endif
+
+#if !defined(HAVE_VERRX)
+static void
+verrx(int eval, const char *fmt, va_list args)
+{
+	vwarnx(fmt, args);
+	exit(eval);
+}
+#endif
+
+#if !defined(HAVE_ERR)
+void
+err(int eval, const char *fmt, ...)
+{
+        va_list ap;
+
+        va_start(ap, fmt);
+        verr(eval, fmt, ap);
+        va_end(ap);
+}
+#endif
+
+#if !defined(HAVE_ERRX)
+void
+errx(int eval, const char *fmt, ...)
+{
+        va_list ap;
+
+        va_start(ap, fmt);
+        verrx(eval, fmt, ap);
+        va_end(ap);
+}
+#endif
+
+#if !defined(HAVE_WARN)
+void
+warn(const char *fmt, ...)
+{
+        va_list ap;
+
+        va_start(ap, fmt);
+        vwarn(fmt, ap);
+        va_end(ap);
+}
+#endif
+
+#if !defined(HAVE_WARNX)
+void
+warnx(const char *fmt, ...)
+{
+        va_list ap;
+
+        va_start(ap, fmt);
+        vwarnx(fmt, ap);
+        va_end(ap);
+}
 #endif

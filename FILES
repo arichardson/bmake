@@ -30,9 +30,14 @@ hash.h
 install-sh
 job.c
 job.h
+meta.c
+meta.h
+dirname.c
 realpath.c
+strlcpy.c
 strlist.c
 strlist.h
+stresep.c
 trace.c
 trace.h
 lst.h

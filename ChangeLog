@@ -1,3 +1,16 @@
+2010-09-13  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* boot-strap: document configure knobs for meta and filemon.
+
+	* Makefile.in (MAKE_VERSION): bump version to 20100911
+	  Merge with NetBSD make, pick up
+	  o meta.c - meta mode
+
+	* make-bootstrap.sh.in: handle meta.c
+	* configure.in: add knobs for use_meta and filemon_h
+	  also, look for dirname, str[e]sep and strlcpy
+	* util.c: add simple err[x] and warn[x]
+
 2010-08-08  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* boot-strap (TOOL_DIFF): set this to ensure tests use

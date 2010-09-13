@@ -96,6 +96,9 @@ DDEESSCCRRIIPPTTIIOONN
                      they are prefixed by `@' or other "quiet" flags.  Also
                      known as "loud" behavior.
 
+             _M       Print debugging information about "meta" mode decisions
+                     about targets.
+
              _m       Print debugging information about making targets, includ-
                      ing modification dates.
 
@@ -145,14 +148,15 @@ DDEESSCCRRIIPPTTIIOONN
 
      --jj _m_a_x___j_o_b_s
              Specify the maximum number of jobs that bbmmaakkee may have running at
-             any one time.  Turns compatibility mode off, unless the _B flag is
-             also specified.  When compatibility mode is off, all commands
-             associated with a target are executed in a single shell invoca-
-             tion as opposed to the traditional one shell invocation per line.
-             This can break traditional scripts which change directories on
-             each command invocation and then expect to start with a fresh
-             environment on the next line.  It is more efficient to correct
-             the scripts rather than turn backwards compatibility on.
+             any one time.  The value is saved in _._M_A_K_E_._J_O_B_S.  Turns compati-
+             bility mode off, unless the _B flag is also specified.  When com-
+             patibility mode is off, all commands associated with a target are
+             executed in a single shell invocation as opposed to the tradi-
+             tional one shell invocation per line.  This can break traditional
+             scripts which change directories on each command invocation and
+             then expect to start with a fresh environment on the next line.
+             It is more efficient to correct the scripts rather than turn
+             backwards compatibility on.
 
      --kk      Continue processing after errors are encountered, but only on
              those targets that do not depend on the target whose creation
@@ -463,7 +467,46 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      once, regardless of the number of times read.
 
      _._M_A_K_E_._M_O_D_E      Processed after reading all makefiles.  Can affect the
-                     mode that bbmmaakkee runs in.  Currently just `_c_o_m_p_a_t' mode.
+                     mode that bbmmaakkee runs in.  It can contain a number of key-
+                     words:
+
+                     _c_o_m_p_a_t      Like --BB puts bbmmaakkee into "compat" mode.
+
+                     _m_e_t_a        Puts bbmmaakkee into "meta" mode, where meta files
+                                 are created for each target to capture the
+                                 command run, the output generated and if
+                                 filemon(4) is available, the system calls
+                                 which are of interest to bbmmaakkee.  The captured
+                                 output can be very useful when diagnosing
+                                 errors.
+
+                     _v_e_r_b_o_s_e     If in "meta" mode, print a clue about the
+                                 target being built.  This is useful if the
+                                 build is otherwise running silently.  The
+                                 message printed the value of:
+                                 _._M_A_K_E_._M_E_T_A_._P_R_E_F_I_X.
+
+                     _i_g_n_o_r_e_-_c_m_d  Some makefiles have commands which are simply
+                                 not stable.  This keyword causes them to be
+                                 ignored for determining whether a target is
+                                 out of date in "meta" mode.  See also
+                                 ..NNOOMMEETTAA__CCMMPP.
+
+     _._M_A_K_E_._M_E_T_A_._C_R_E_A_T_E_D
+                     In "meta" mode, this variable contains a list of all the
+                     meta files updated.  If not empty, it can be used to
+                     trigger processing of _._M_A_K_E_._M_E_T_A_._F_I_L_E_S.
+
+     _._M_A_K_E_._M_E_T_A_._F_I_L_E_S
+                     In "meta" mode, this variable contains a list of all the
+                     meta files used (updated or not).  This list can be used
+                     to process the meta files to extract dependency informa-
+                     tion.
+
+     _._M_A_K_E_._M_E_T_A_._P_R_E_F_I_X
+                     Defines the message printed for each meta file updated in
+                     "meta verbose" mode.  The default value is:
+                           Building ${.TARGET:H:tA}/${.TARGET:T}
 
      _._M_A_K_E_O_V_E_R_R_I_D_E_S  This variable is used to record the names of variables
                      assigned to on the command line, so that they may be
@@ -985,6 +1028,19 @@ SSPPEECCIIAALL SSOOUURRCCEESS ((AATTTTRRIIBBUUTTEESS))
                or --tt options were specified.  Normally used to mark recursive
                bbmmaakkee's.
 
+     ..MMEETTAA     Create a meta file for the target, even if it is flagged as
+               ..PPHHOONNYY, ..MMAAKKEE or ..SSPPEECCIIAALL.  Usage in conjunction with ..MMAAKKEE is
+               the most likely case.
+
+     ..NNOOMMEETTAA   Do not create a meta file for the target.  Meta files are also
+               not created for ..PPHHOONNYY, ..MMAAKKEE or ..SSPPEECCIIAALL targets.
+
+     ..NNOOMMEETTAA__CCMMPP
+               Ignore differences in commands when deciding if target is out
+               of date.  This is useful if the command contains a value which
+               always changes.  If the number of commands change, though the
+               target will still be out of date.
+
      ..NNOOPPAATTHH   Do not search for the target in the directories specified by
                ..PPAATTHH.
 
@@ -1203,4 +1259,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.0_STABLE                June 30, 2010               NetBSD 5.0_STABLE
+NetBSD 5.0_STABLE             September 13, 2010             NetBSD 5.0_STABLE

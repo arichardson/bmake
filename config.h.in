@@ -20,8 +20,20 @@
    */
 #undef HAVE_DIRENT_H
 
+/* Define to 1 if you have the `dirname' function. */
+#undef HAVE_DIRNAME
+
 /* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
 #undef HAVE_DOPRNT
+
+/* Define to 1 if you have the `err' function. */
+#undef HAVE_ERR
+
+/* Define to 1 if you have the `errx' function. */
+#undef HAVE_ERRX
+
+/* Define to 1 if you have the <err.h> header file. */
+#undef HAVE_ERR_H
 
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
@@ -92,6 +104,9 @@
 /* Define to 1 if you have the `strerror' function. */
 #undef HAVE_STRERROR
 
+/* Define to 1 if you have the `stresep' function. */
+#undef HAVE_STRESEP
+
 /* Define to 1 if you have the `strftime' function. */
 #undef HAVE_STRFTIME
 
@@ -100,6 +115,12 @@
 
 /* Define to 1 if you have the <string.h> header file. */
 #undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strlcpy' function. */
+#undef HAVE_STRLCPY
+
+/* Define to 1 if you have the `strsep' function. */
+#undef HAVE_STRSEP
 
 /* Define to 1 if you have the `strtod' function. */
 #undef HAVE_STRTOD
@@ -172,6 +193,12 @@
 
 /* Define to 1 if you have the `waitpid' function. */
 #undef HAVE_WAITPID
+
+/* Define to 1 if you have the `warn' function. */
+#undef HAVE_WARN
+
+/* Define to 1 if you have the `warnx' function. */
+#undef HAVE_WARNX
 
 /* Define to 1 if `fork' works. */
 #undef HAVE_WORKING_FORK
