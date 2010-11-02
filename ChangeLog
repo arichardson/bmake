@@ -1,3 +1,12 @@
+2010-11-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20101101
+
+2010-10-16  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* machine.sh: like os.sh, 
+	allow for uname -p producing useless drivel
+
 2010-09-13  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* boot-strap: document configure knobs for meta and filemon.
