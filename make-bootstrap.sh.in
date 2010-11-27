@@ -41,7 +41,7 @@ do_compile() {
 		do_compile2 "$obj" "$d/$src" "$@" || exit 1
 		return
 	done
-	echo "Unknown object file '$1'" >&2
+	echo "Unknown object file '$obj'" >&2
 	exit 1
 }
 

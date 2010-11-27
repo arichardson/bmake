@@ -1,3 +1,15 @@
+2010-11-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20101126
+	  Merge with NetBSD make, pick up
+	  o if stale dependency is an IMPSRC, search via .PATH
+	  o meta_oodate: if a referenced file is missing, target is
+	    out-of-date.
+	  o meta_oodate: if a target uses .OODATE in its commands,
+	    it (.OODATE) needs to be recomputed.
+	  o keep a pointer to youngest child node, rather than just its
+	    mtime.
+	
 2010-11-02  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20101101
