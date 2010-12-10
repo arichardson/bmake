@@ -1,4 +1,4 @@
-/*	$NetBSD: var.c,v 1.159 2010/06/06 01:13:12 sjg Exp $	*/
+/*	$NetBSD: var.c,v 1.161 2010/12/02 16:46:22 christos Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -69,14 +69,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: var.c,v 1.159 2010/06/06 01:13:12 sjg Exp $";
+static char rcsid[] = "$NetBSD: var.c,v 1.161 2010/12/02 16:46:22 christos Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)var.c	8.3 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: var.c,v 1.159 2010/06/06 01:13:12 sjg Exp $");
+__RCSID("$NetBSD: var.c,v 1.161 2010/12/02 16:46:22 christos Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -379,6 +379,12 @@ VarFind(const char *name, GNode *ctxt, int flags)
 				name = TARGET;
 			break;
 		}
+#ifdef notyet
+    /* for compatibility with gmake */
+    if (name[0] == '^' && name[1] == '\0')
+	    name = ALLSRC;
+#endif
+
     /*
      * First look for the variable in the given context. If it's not there,
      * look for it in VAR_CMD, VAR_GLOBAL and the environment, in that order,
@@ -2486,7 +2492,7 @@ ApplyModifiers(char *nstr, const char *tstr,
 			cp = ++tstr;
 			break;
 		    }
-		    delim = BRCLOSE;
+		    delim = startc == PROPEN ? PRCLOSE : BRCLOSE;
 		    pattern.flags = 0;
 
 		    pattern.rhs = VarGetPattern(ctxt, &parsestate, errnum,

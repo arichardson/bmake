@@ -1,3 +1,14 @@
+2010-12-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20101210
+	  Merge with NetBSD make, pick up
+	  o meta_oodate: track cwd per process, and only consider target
+	    out-of-date if missing file is outside make's CWD.
+	    Ignore files in /tmp/ etc.
+	  o to ensure unit-tests results match, need to control LC_ALL
+	    as well as LANG.
+	  o fix for parsing bug in var.c
+
 2010-11-26  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20101126
