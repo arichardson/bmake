@@ -1,3 +1,10 @@
+2010-12-15  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20101215
+	  Merge with NetBSD make, pick up
+	  o ensure meta_job_error() does not report a previous .meta file
+	    as being culprit.
+
 2010-12-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20101210
