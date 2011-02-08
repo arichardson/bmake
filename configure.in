@@ -1,6 +1,6 @@
 dnl
 dnl RCSid:
-dnl	$Id: configure.in,v 1.37 2010/09/13 20:29:04 sjg Exp $
+dnl	$Id: configure.in,v 1.38 2011/01/04 00:07:32 sjg Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script
 dnl
@@ -89,6 +89,7 @@ AC_CHECK_HEADERS( \
 	poll.h \
 	ranlib.h \
 	string.h \
+	sys/mman.h \
 	sys/select.h \
 	sys/socket.h \
 	sys/time.h \
@@ -138,6 +139,7 @@ AC_CHECK_FUNCS( \
 	getopt \
 	getwd \
 	killpg \
+	mmap \
 	putenv \
 	select \
 	setenv \

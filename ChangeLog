@@ -1,3 +1,19 @@
+2011-02-07  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110207
+	  Merge with NetBSD make, pick up
+	  o fix for bug in meta mode.
+	
+2011-01-03  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* parse.c: SunOS 5.8 at least does not have MAP_FILE
+
+2011-01-01  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110101
+	  Merge with NetBSD make, pick up
+	  o use mmap(2) if available, for reading makefiles
+
 2010-12-15  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20101215

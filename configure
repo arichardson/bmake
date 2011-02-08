@@ -4561,6 +4561,7 @@ for ac_header in \
 	poll.h \
 	ranlib.h \
 	string.h \
+	sys/mman.h \
 	sys/select.h \
 	sys/socket.h \
 	sys/time.h \
@@ -5415,6 +5416,7 @@ for ac_func in \
 	getopt \
 	getwd \
 	killpg \
+	mmap \
 	putenv \
 	select \
 	setenv \
