@@ -39,6 +39,7 @@
 #include <string.h>
 
 #if !defined(HAVE_STRESEP)
+char * stresep(char **stringp, const char *delim, int esc);
 /*
  * Get next token from string *stringp, where tokens are possibly-empty
  * strings separated by characters from delim. If esc is not NUL, then

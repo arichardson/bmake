@@ -3,7 +3,7 @@
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.27 2010/09/13 20:06:33 sjg Exp $
+ *	$Id: util.c,v 1.28 2011/02/13 21:41:12 sjg Exp $
  */
 
 #include "make.h"
@@ -548,7 +548,7 @@ vwarn(const char *fmt, va_list args)
 }
 #endif
 
-#if !defined(HAVE_VERR)
+#if !defined(HAVE_ERR)
 static void
 verr(int eval, const char *fmt, va_list args)
 {
@@ -557,7 +557,7 @@ verr(int eval, const char *fmt, va_list args)
 }
 #endif
 
-#if !defined(HAVE_VERRX)
+#if !defined(HAVE_ERRX)
 static void
 verrx(int eval, const char *fmt, va_list args)
 {

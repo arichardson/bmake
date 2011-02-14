@@ -1,3 +1,13 @@
+2011-02-13  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110214
+	  Merge with NetBSD make, pick up
+	  o meta.c handle realpath() failing when generating meta file
+	    name.
+
+	* sigcompat.c: convert to ansi so we can use higher warning levels.
+
+
 2011-02-07  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110207
