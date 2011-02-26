@@ -1,3 +1,11 @@
+2011-02-25  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110225
+	  Merge with NetBSD make, pick up
+	  o fix for incorrect .PARSEDIR when .OBJDIR is re-computed after
+	    makefiles have been read.
+	  o fix example of :? modifier in man page.
+	
 2011-02-13  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110214
