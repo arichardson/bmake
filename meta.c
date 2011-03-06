@@ -386,10 +386,8 @@ meta_create(BuildMon *pbm, GNode *gn)
     extern char **environ;
     meta_file_t mf;
     char buf[MAXPATHLEN];
-    char curdir[MAXPATHLEN];
     char objdir[MAXPATHLEN];
     char **ptr;
-    const char *cname;
     const char *dname;
     const char *tname;
     char *fname;
@@ -415,7 +413,6 @@ meta_create(BuildMon *pbm, GNode *gn)
     i = 0;
     
     dname = Var_Value(".OBJDIR", gn, &p[i++]);
-    cname = Var_Value(".CURDIR", gn, &p[i++]);
     tname = Var_Value(TARGET, gn, &p[i++]);
     
     /* The object directory may not exist. Check it.. */
@@ -436,11 +433,9 @@ meta_create(BuildMon *pbm, GNode *gn)
     /* make sure these are canonical */
     if (realpath(dname, objdir))
 	dname = objdir;
-    if (realpath(cname, curdir))
-	cname = curdir;
 
     /* If we aren't in the object directory, don't create a meta file. */
-    if (strcmp(cname, dname) == 0) {
+    if (strcmp(curdir, dname) == 0) {
 	if (DEBUG(META))
 	    fprintf(debug_file, "Skipping meta for %s: .OBJDIR == .CURDIR\n",
 		    gn->name);
@@ -768,15 +763,15 @@ Boolean
 meta_oodate(GNode *gn, Boolean oodate)
 {
     static char *tmpdir = NULL;
+    static char cwd[MAXPATHLEN];
     char ldir_vname[64];
-    char cwd[MAXPATHLEN];
     char latestdir[MAXPATHLEN];
     char fname[MAXPATHLEN];
     char fname1[MAXPATHLEN];
     char fname2[MAXPATHLEN];
     char *p;
     char *cp;
-    size_t cwdlen;
+    static size_t cwdlen = 0;
     static size_t tmplen = 0;
     FILE *fp;
     Boolean ignoreOODATE = FALSE;
@@ -791,9 +786,6 @@ meta_oodate(GNode *gn, Boolean oodate)
      * would be if the target needs to be re-built.
      */
     Make_DoAllVar(gn);
-
-    if (getcwd(cwd, sizeof(cwd)) == NULL)
-	err(1, "Could not get current working directory");
 
     meta_name(gn, fname, sizeof(fname), NULL, NULL);
 
@@ -818,6 +810,12 @@ meta_oodate(GNode *gn, Boolean oodate)
 	    buf = bmake_malloc(bufsz);
 	}
 
+	if (!cwdlen) {
+	    if (getcwd(cwd, sizeof(cwd)) == NULL)
+		err(1, "Could not get current working directory");
+	    cwdlen = strlen(cwd);
+	}
+
 	if (!tmpdir) {
 	    tmpdir = getTmpdir();
 	    tmplen = strlen(tmpdir);
@@ -825,8 +823,6 @@ meta_oodate(GNode *gn, Boolean oodate)
 
 	/* we want to track all the .meta we read */
 	Var_Append(".MAKE.META.FILES", fname, VAR_GLOBAL);
-
-	cwdlen = strlen(cwd);
 
 	ln = Lst_First(gn->commands);
 	while (!oodate && (x = fgetLine(&buf, &bufsz, 0, fp)) > 0) {
@@ -1096,8 +1092,7 @@ meta_oodate(GNode *gn, Boolean oodate)
 		    ln = Lst_Succ(ln);
 		}
 	    } else if (strcmp(buf, "CWD") == 0) {
-		char curdir[MAXPATHLEN];
-		if (strcmp(p, getcwd(curdir, sizeof(curdir))) != 0) {
+		if (strcmp(p, cwd) != 0) {
 		    if (DEBUG(META))
 			fprintf(debug_file, "%s: %d: the current working directory has changed from '%s' to '%s'\n", fname, lineno, p, curdir);
 		    oodate = TRUE;

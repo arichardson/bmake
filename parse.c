@@ -1,4 +1,4 @@
-/*	$NetBSD: parse.c,v 1.176 2011/02/20 23:12:09 joerg Exp $	*/
+/*	$NetBSD: parse.c,v 1.177 2011/03/03 14:53:02 nakayama Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -69,14 +69,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: parse.c,v 1.176 2011/02/20 23:12:09 joerg Exp $";
+static char rcsid[] = "$NetBSD: parse.c,v 1.177 2011/03/03 14:53:02 nakayama Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)parse.c	8.3 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: parse.c,v 1.176 2011/02/20 23:12:09 joerg Exp $");
+__RCSID("$NetBSD: parse.c,v 1.177 2011/03/03 14:53:02 nakayama Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -131,6 +131,13 @@ __RCSID("$NetBSD: parse.c,v 1.176 2011/02/20 23:12:09 joerg Exp $");
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
+
+#ifndef MAP_FILE
+#define MAP_FILE 0
+#endif
+#ifndef MAP_COPY
+#define MAP_COPY MAP_PRIVATE
+#endif
 
 #include "make.h"
 #include "hash.h"
@@ -477,7 +484,9 @@ static struct loadedfile *
 loadfile(const char *path, int fd)
 {
 	struct loadedfile *lf;
+#ifdef HAVE_MMAP
 	long pagesize;
+#endif
 	ssize_t result;
 	size_t bufpos;
 
@@ -559,7 +568,9 @@ loadfile(const char *path, int fd)
 		lf->buf = bmake_realloc(lf->buf, lf->len);
 	}
 
+#ifdef HAVE_MMAP
 done:
+#endif
 	if (path != NULL) {
 		close(fd);
 	}

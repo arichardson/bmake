@@ -1,3 +1,20 @@
+2011-03-06  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110306
+	  Merge with NetBSD make, pick up
+	  o meta.c, only do getcwd() once
+	
+2011-03-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110305
+	  Merge with NetBSD make, pick up
+	  o correct sysV substitution handling of empty lhs and variable
+	  o correct exists() check for dir with trailing /
+	  o correct handling of modifiers for non-existant variables
+	    during evaluation of conditionals.
+	  o ensure MAP_FILE is defined.
+	  o meta.c use curdir[] now exported by main.c
+	
 2011-02-25  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110225
