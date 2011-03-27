@@ -470,7 +470,7 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      mode that bbmmaakkee runs in.  It can contain a number of key-
                      words:
 
-                     _c_o_m_p_a_t      Like --BB puts bbmmaakkee into "compat" mode.
+                     _c_o_m_p_a_t      Like --BB, puts bbmmaakkee into "compat" mode.
 
                      _m_e_t_a        Puts bbmmaakkee into "meta" mode, where meta files
                                  are created for each target to capture the
@@ -479,6 +479,10 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  which are of interest to bbmmaakkee.  The captured
                                  output can be very useful when diagnosing
                                  errors.
+
+                     _c_u_r_d_i_r_O_k_= _b_f Normally bbmmaakkee will not create .meta files
+                                 in `_._C_U_R_D_I_R'.  This can be overridden by set-
+                                 ting _b_f to a value which represents True.
 
                      _v_e_r_b_o_s_e     If in "meta" mode, print a clue about the
                                  target being built.  This is useful if the
@@ -1731,7 +1735,7 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      mode that bbmmaakkee runs in.  It can contain a number of key-
                      words:
 
-                     _c_o_m_p_a_t      Like --BB puts bbmmaakkee into "compat" mode.
+                     _c_o_m_p_a_t      Like --BB, puts bbmmaakkee into "compat" mode.
 
                      _m_e_t_a        Puts bbmmaakkee into "meta" mode, where meta files
                                  are created for each target to capture the
@@ -1740,6 +1744,10 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  which are of interest to bbmmaakkee.  The captured
                                  output can be very useful when diagnosing
                                  errors.
+
+                     _c_u_r_d_i_r_O_k_= _b_f Normally bbmmaakkee will not create .meta files
+                                 in `_._C_U_R_D_I_R'.  This can be overridden by set-
+                                 ting _b_f to a value which represents True.
 
                      _v_e_r_b_o_s_e     If in "meta" mode, print a clue about the
                                  target being built.  This is useful if the
@@ -2520,4 +2528,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                     February 25, 2011                    NetBSD 5.1
+NetBSD 5.1                      March 27, 2011                      NetBSD 5.1

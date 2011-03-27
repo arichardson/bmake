@@ -1,3 +1,12 @@
+2011-03-27  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110327
+	  Merge with NetBSD make, pick up
+	  o meta.c, if .MAKE.MODE contains curdirOk=yes
+	    allow creating .meta files in .CURDIR
+	* boot-strap (TOOL_DIFF): aparently at least on linux distro
+	  formats the output of 'type' differently - so eat any "()"
+
 2011-03-06  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110306
