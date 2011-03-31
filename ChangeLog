@@ -1,3 +1,24 @@
+2011-03-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110330
+	  mostly because its a cooler version.
+	  Merge with NetBSD make, pick up
+	  o NetBSD tags for meta.[ch]
+	  o job.c call meta_job_finish() after meta_job_error().
+	  o meta_job_error() should call meta_job_finish() to ensure
+	    .meta file is closed, and safe to copy - if .ERROR target wants.
+	   meta_job_finish() is safe to call repeatedly.
+	
+2011-03-29  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* unit-tests/modts: use printf if it is a builtin, 
+	  to save us from MirBSD
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110329
+	  Merge with NetBSD make, pick up
+	  o fix for use after free() in CondDoExists().
+	  o meta_oodate() report extra commands and return earlier.
+	
 2011-03-27  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110327

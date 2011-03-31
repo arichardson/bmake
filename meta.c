@@ -1,3 +1,5 @@
+/*      $NetBSD: meta.c,v 1.16 2011/03/31 06:50:43 sjg Exp $ */
+
 /*
  * Implement 'meta' mode.
  * Adapted from John Birrell's patches to FreeBSD make.
@@ -654,6 +656,7 @@ meta_job_error(Job *job, GNode *gn, int flags, int status)
     if (pbm && pbm->meta_fname[0]) {
 	Var_Set(".ERROR_META_FILE", pbm->meta_fname, VAR_GLOBAL, 0);
     }
+    meta_job_finish(job);
 }
 
 void
@@ -1110,22 +1113,21 @@ meta_oodate(GNode *gn, Boolean oodate)
 		    ln = Lst_Succ(ln);
 		}
 	    } else if (strcmp(buf, "CWD") == 0) {
+		/*
+		 * Check if there are extra commands now
+		 * that weren't in the meta data file.
+		 */
+		if (!oodate && ln != NULL) {
+		    if (DEBUG(META))
+			fprintf(debug_file, "%s: %d: there are extra build commands now that weren't in the meta data file\n", fname, lineno);
+		    oodate = TRUE;
+		}
 		if (strcmp(p, cwd) != 0) {
 		    if (DEBUG(META))
 			fprintf(debug_file, "%s: %d: the current working directory has changed from '%s' to '%s'\n", fname, lineno, p, curdir);
 		    oodate = TRUE;
 		}
 	    }
-	}
-
-	/*
-	 * Check if there are extra commands now
-	 * that weren't in the meta data file.
-	 */
-	if (!oodate && ln != NULL) {
-	    if (DEBUG(META))
-		fprintf(debug_file, "%s: %d: there are extra build commands now that weren't in the meta data file\n", fname, lineno);
-	    oodate = TRUE;
 	}
 
 	fclose(fp);
