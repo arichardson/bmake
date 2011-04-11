@@ -1,18 +1,18 @@
-/*	$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $	*/
+/*	$NetBSD: util.c,v 1.51 2011/04/02 07:58:30 mbalmer Exp $	*/
 
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.28 2011/02/13 21:41:12 sjg Exp $
+ *	$Id: util.c,v 1.29 2011/04/11 01:53:57 sjg Exp $
  */
 
 #include "make.h"
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $";
+static char rcsid[] = "$NetBSD: util.c,v 1.51 2011/04/02 07:58:30 mbalmer Exp $";
 #else
 #ifndef lint
-__RCSID("$NetBSD: util.c,v 1.50 2010/06/03 15:40:16 sjg Exp $");
+__RCSID("$NetBSD: util.c,v 1.51 2011/04/02 07:58:30 mbalmer Exp $");
 #endif
 #endif
 
@@ -47,7 +47,7 @@ findenv(const char *name, int *offset)
 	char *p, *q;
 
 	for (i = 0; (q = environ[i]); i++) {
-		char *p = strchr(q, '=');
+		p = strchr(q, '=');
 		if (p == NULL)
 			continue;
 		if (strncmp(name, q, len = p - q) == 0) {

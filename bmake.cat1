@@ -663,6 +663,17 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::RR   Replaces each word in the variable with everything but its suffix.
 
+     ::ggmmttiimmee
+          The value is a format string for strftime(3), using the current
+          gmtime(3).
+
+     ::hhaasshh
+          Compute a 32bit hash of the value and encode it as hex digits.
+
+     ::llooccaallttiimmee
+          The value is a format string for strftime(3), using the current
+          localtime(3).
+
      ::ttAA  Attempt to convert variable to an absolute path using realpath(3),
           if that fails, the value is unchanged.
 
@@ -1928,6 +1939,17 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::RR   Replaces each word in the variable with everything but its suffix.
 
+     ::ggmmttiimmee
+          The value is a format string for strftime(3), using the current
+          gmtime(3).
+
+     ::hhaasshh
+          Compute a 32bit hash of the value and encode it as hex digits.
+
+     ::llooccaallttiimmee
+          The value is a format string for strftime(3), using the current
+          localtime(3).
+
      ::ttAA  Attempt to convert variable to an absolute path using realpath(3),
           if that fails, the value is unchanged.
 
@@ -2528,4 +2550,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                      March 27, 2011                      NetBSD 5.1
+NetBSD 5.1                      April 10, 2011                      NetBSD 5.1

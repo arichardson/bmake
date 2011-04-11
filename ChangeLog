@@ -1,3 +1,10 @@
+2011-04-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110410
+	  Merge with NetBSD make, pick up
+	  o :hash - cheap 32bit hash of value
+	  o :localtime, :gmtime - use value as format string for strftime.
+	
 2011-03-30  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110330
