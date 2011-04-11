@@ -1,3 +1,10 @@
+2011-04-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110411
+	  Merge with NetBSD make, pick up
+	  o when long modifiers fail to match, check sysV style.
+	    - add a test case
+	
 2011-04-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110410
