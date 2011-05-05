@@ -496,6 +496,12 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  out of date in "meta" mode.  See also
                                  ..NNOOMMEETTAA__CCMMPP.
 
+     _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
+                     In "meta" mode, provides a list of prefixes which match
+                     the directories controlled by bbmmaakkee.  If a file that was
+                     generated outside of _._O_B_J_D_I_R but within said bailiwick is
+                     missing, the current target is considered out-of-date.
+
      _._M_A_K_E_._M_E_T_A_._C_R_E_A_T_E_D
                      In "meta" mode, this variable contains a list of all the
                      meta files updated.  If not empty, it can be used to
@@ -1266,6 +1272,14 @@ CCOOMMPPAATTIIBBIILLIITTYY
      so that they still appear to be variable expansions.  In particular this
      stops them being treated as syntax, and removes some obscure problems
      using them in .if statements.
+
+     Unlike other bbmmaakkee programs, this implementation by default executes all
+     commands for a given target using a single shell invocation.  This is
+     done for both efficiency and to simplify error handling in remote command
+     invocations.  Typically this is transparent to the user, unless the tar-
+     get commands change the current working directory using ``cd'' or
+     ``chdir''.  To be compatible with Makefiles that do this, one can use --BB
+     to disable this behavior.
 
 SSEEEE AALLSSOO
      mkdep(1)
@@ -1772,6 +1786,12 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  out of date in "meta" mode.  See also
                                  ..NNOOMMEETTAA__CCMMPP.
 
+     _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
+                     In "meta" mode, provides a list of prefixes which match
+                     the directories controlled by bbmmaakkee.  If a file that was
+                     generated outside of _._O_B_J_D_I_R but within said bailiwick is
+                     missing, the current target is considered out-of-date.
+
      _._M_A_K_E_._M_E_T_A_._C_R_E_A_T_E_D
                      In "meta" mode, this variable contains a list of all the
                      meta files updated.  If not empty, it can be used to
@@ -2543,6 +2563,14 @@ CCOOMMPPAATTIIBBIILLIITTYY
      stops them being treated as syntax, and removes some obscure problems
      using them in .if statements.
 
+     Unlike other bbmmaakkee programs, this implementation by default executes all
+     commands for a given target using a single shell invocation.  This is
+     done for both efficiency and to simplify error handling in remote command
+     invocations.  Typically this is transparent to the user, unless the tar-
+     get commands change the current working directory using ``cd'' or
+     ``chdir''.  To be compatible with Makefiles that do this, one can use --BB
+     to disable this behavior.
+
 SSEEEE AALLSSOO
      mkdep(1)
 
@@ -2550,4 +2578,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                      April 10, 2011                      NetBSD 5.1
+NetBSD 5.1                        May 4, 2011                       NetBSD 5.1

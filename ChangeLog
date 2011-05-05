@@ -1,3 +1,12 @@
+2011-05-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110505
+	  Merge with NetBSD make, pick up
+	  o .MAKE.META.BAILIWICK - list of prefixes which define the scope
+	    of make's control.  In meta mode, any generated file within
+	    said bailiwick, which  is found to be missing, causes current
+	    target to be out-of-date. 
+	
 2011-04-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110411
