@@ -1172,7 +1172,7 @@ SSPPEECCIIAALL TTAARRGGEETTSS
               be built, unless `a' is built by another part of the dependency
               graph, the following is a dependency loop:
 
-              .ORDER: a b
+              .ORDER: b a
               b: a
 
               The ordering imposed by ..OORRDDEERR is only relevant for parallel
@@ -2462,7 +2462,7 @@ SSPPEECCIIAALL TTAARRGGEETTSS
               be built, unless `a' is built by another part of the dependency
               graph, the following is a dependency loop:
 
-              .ORDER: a b
+              .ORDER: b a
               b: a
 
               The ordering imposed by ..OORRDDEERR is only relevant for parallel
@@ -2578,4 +2578,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                        May 4, 2011                       NetBSD 5.1
+NetBSD 5.1                       May 29, 2011                       NetBSD 5.1

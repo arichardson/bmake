@@ -1,3 +1,17 @@
+2011-06-07  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Merge with NetBSD make, pick up
+	  o unit-tests/modts now works on MirBSD
+
+2011-06-04  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110606
+	  Merge with NetBSD make, pick up
+	  o ApplyModifiers: when we parse a variable which is not
+	    the entire modifier string, or not followed by ':', do not
+	    consider it as containing modifiers.
+	  o loadfile: ensure newline at end of mapped file.
+
 2011-05-05  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110505
