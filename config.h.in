@@ -89,6 +89,12 @@
 /* Define to 1 if you have the `setenv' function. */
 #undef HAVE_SETENV
 
+/* Define to 1 if you have the `setpgid' function. */
+#undef HAVE_SETPGID
+
+/* Define to 1 if you have the `setsid' function. */
+#undef HAVE_SETSID
+
 /* Define to 1 if you have the `sigaction' function. */
 #undef HAVE_SIGACTION
 

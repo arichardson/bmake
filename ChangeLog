@@ -1,3 +1,10 @@
+2011-06-22  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110622
+	  Merge with NetBSD make, pick up
+	  o meta_oodate detect corrupted .meta file and declare oodate.
+	* configure.in: add check for setsid
+	
 2011-06-07  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Merge with NetBSD make, pick up
