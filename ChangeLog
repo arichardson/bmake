@@ -1,3 +1,18 @@
+2011-08-18  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110818
+	  Merge with NetBSD make, pick up
+	  o in meta mode, if target flagged .META a missing .meta file
+	    means target is out-of-date
+	  o fixes for gcc 4.5 warnings
+	  o simplify job printing code
+	
+2011-08-09  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110808
+	  Merge with NetBSD make, pick up
+	  o do not touch OP_SPECIAL targets when doing make -t
+	
 2011-06-22  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110622

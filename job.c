@@ -1,4 +1,4 @@
-/*	$NetBSD: job.c,v 1.156 2011/03/31 06:28:42 sjg Exp $	*/
+/*	$NetBSD: job.c,v 1.158 2011/08/14 13:06:09 christos Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
@@ -70,14 +70,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: job.c,v 1.156 2011/03/31 06:28:42 sjg Exp $";
+static char rcsid[] = "$NetBSD: job.c,v 1.158 2011/08/14 13:06:09 christos Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)job.c	8.2 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: job.c,v 1.156 2011/03/31 06:28:42 sjg Exp $");
+__RCSID("$NetBSD: job.c,v 1.158 2011/08/14 13:06:09 christos Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -334,10 +334,7 @@ static int readyfd(Job *);
 
 STATIC GNode   	*lastNode;	/* The node for which output was most recently
 				 * produced. */
-STATIC const char *targFmt;   	/* Format string to use to head output from a
-				 * job when it's not the most-recent job heard
-				 * from */
-static char *targPrefix = NULL; /* What we print at the start of targFmt */
+static char *targPrefix = NULL; /* What we print at the start of TARG_FMT */
 static Job tokenWaitJob;	/* token wait pseudo-job */
 
 static Job childExitJob;	/* child exit pseudo-job */
@@ -346,7 +343,8 @@ static Job childExitJob;	/* child exit pseudo-job */
 
 #define TARG_FMT  "%s %s ---\n" /* Default format */
 #define MESSAGE(fp, gn) \
-	(void)fprintf(fp, targFmt, targPrefix, gn->name)
+	if (maxJobs != 1) \
+	    (void)fprintf(fp, TARG_FMT, targPrefix, gn->name)
 
 static sigset_t caught_signals;	/* Set of signals we handle */
 #if defined(SYSV)
@@ -1149,7 +1147,8 @@ Job_Touch(GNode *gn, Boolean silent)
     int		  streamID;   	/* ID of stream opened to do the touch */
     struct utimbuf times;	/* Times for utime() call */
 
-    if (gn->type & (OP_JOIN|OP_USE|OP_USEBEFORE|OP_EXEC|OP_OPTIONAL|OP_PHONY)) {
+    if (gn->type & (OP_JOIN|OP_USE|OP_USEBEFORE|OP_EXEC|OP_OPTIONAL|
+	OP_SPECIAL|OP_PHONY)) {
 	/*
 	 * .JOIN, .USE, .ZEROTIME and .OPTIONAL targets are "virtual" targets
 	 * and, as such, shouldn't really be created.
@@ -2194,16 +2193,6 @@ Job_Init(void)
     errors = 	  0;
 
     lastNode =	  NULL;
-
-    if (maxJobs == 1) {
-	/*
-	 * If only one job can run at a time, there's no need for a banner,
-	 * is there?
-	 */
-	targFmt = "";
-    } else {
-	targFmt = TARG_FMT;
-    }
 
     /*
      * There is a non-zero chance that we already have children.

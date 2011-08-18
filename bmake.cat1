@@ -1051,7 +1051,8 @@ SSPPEECCIIAALL SSOOUURRCCEESS ((AATTTTRRIIBBUUTTEESS))
 
      ..MMEETTAA     Create a meta file for the target, even if it is flagged as
                ..PPHHOONNYY, ..MMAAKKEE, or ..SSPPEECCIIAALL.  Usage in conjunction with ..MMAAKKEE is
-               the most likely case.
+               the most likely case.  In "meta" mode, the target is out-of-
+               date if the meta file is missing.
 
      ..NNOOMMEETTAA   Do not create a meta file for the target.  Meta files are also
                not created for ..PPHHOONNYY, ..MMAAKKEE, or ..SSPPEECCIIAALL targets.
@@ -1265,7 +1266,7 @@ CCOOMMPPAATTIIBBIILLIITTYY
      not.
 
      The way that parallel makes are scheduled changed in NetBSD 4.0 so that
-     .ORDER and .WAIT apply recursively to the dependant nodes.  The algo-
+     .ORDER and .WAIT apply recursively to the dependent nodes.  The algo-
      rithms used may change again in the future.
 
      The way that .for loop variables are substituted changed after NetBSD 5.0
@@ -1285,7 +1286,7 @@ SSEEEE AALLSSOO
      mkdep(1)
 
 HHIISSTTOORRYY
-     bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
+     bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
 MAKE(1)                 NetBSD General Commands Manual                 MAKE(1)
 
      portability to other platforms.
@@ -2341,7 +2342,8 @@ SSPPEECCIIAALL SSOOUURRCCEESS ((AATTTTRRIIBBUUTTEESS))
 
      ..MMEETTAA     Create a meta file for the target, even if it is flagged as
                ..PPHHOONNYY, ..MMAAKKEE, or ..SSPPEECCIIAALL.  Usage in conjunction with ..MMAAKKEE is
-               the most likely case.
+               the most likely case.  In "meta" mode, the target is out-of-
+               date if the meta file is missing.
 
      ..NNOOMMEETTAA   Do not create a meta file for the target.  Meta files are also
                not created for ..PPHHOONNYY, ..MMAAKKEE, or ..SSPPEECCIIAALL targets.
@@ -2555,7 +2557,7 @@ CCOOMMPPAATTIIBBIILLIITTYY
      not.
 
      The way that parallel makes are scheduled changed in NetBSD 4.0 so that
-     .ORDER and .WAIT apply recursively to the dependant nodes.  The algo-
+     .ORDER and .WAIT apply recursively to the dependent nodes.  The algo-
      rithms used may change again in the future.
 
      The way that .for loop variables are substituted changed after NetBSD 5.0
@@ -2575,7 +2577,7 @@ SSEEEE AALLSSOO
      mkdep(1)
 
 HHIISSTTOORRYY
-     bbmmaakkee is derived from NetBSD's make(1).  It uses autoconf to facilitate
+     bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                       May 29, 2011                       NetBSD 5.1
+NetBSD 5.1                      August 18, 2011                     NetBSD 5.1
