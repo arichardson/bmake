@@ -496,6 +496,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  out of date in "meta" mode.  See also
                                  ..NNOOMMEETTAA__CCMMPP.
 
+                     _s_i_l_e_n_t_= _b_f  If _b_f is True, when a .meta file is created,
+                                 mark the target
+
      _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
                      In "meta" mode, provides a list of prefixes which match
                      the directories controlled by bbmmaakkee.  If a file that was
@@ -1787,6 +1790,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  out of date in "meta" mode.  See also
                                  ..NNOOMMEETTAA__CCMMPP.
 
+                     _s_i_l_e_n_t_= _b_f  If _b_f is True, when a .meta file is created,
+                                 mark the target
+
      _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
                      In "meta" mode, provides a list of prefixes which match
                      the directories controlled by bbmmaakkee.  If a file that was
@@ -2580,4 +2586,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                      August 18, 2011                     NetBSD 5.1
+NetBSD 5.1                      August 28, 2011                     NetBSD 5.1

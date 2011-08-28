@@ -1,3 +1,10 @@
+2011-08-28  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110828
+	  Merge with NetBSD make, pick up
+	  o silent=yes in .MAKE.MODE causes meta mode to mark targets 
+	    as SILENT if a .meta file is created
+
 2011-08-18  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110818
