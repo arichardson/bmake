@@ -1,3 +1,13 @@
+2011-09-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): 20110909 is a better number ;-)
+
+2011-09-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20110905
+	  Merge with NetBSD make, pick up
+	  o meta_oodate: ignore makeDependfile
+	
 2011-08-28  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20110828
