@@ -1,10 +1,10 @@
 dnl
 dnl RCSid:
-dnl	$Id: configure.in,v 1.41 2011/06/24 03:10:49 sjg Exp $
+dnl	$Id: configure.in,v 1.42 2011/10/01 20:32:37 sjg Exp $
 dnl
 dnl Process this file with autoconf to produce a configure script
 dnl
-AC_INIT([bmake], [20110606], [sjg@NetBSD.org])
+AC_INIT([bmake], [20111001], [sjg@NetBSD.org])
 AC_CONFIG_HEADER(config.h)
 
 dnl
@@ -355,7 +355,7 @@ cat <<EOF
 
 You can now run
 
-	./make-bootstrap.sh
+	sh ./make-bootstrap.sh
 
 to produce a fully functional bmake.
 

@@ -1,3 +1,11 @@
+2011-10-01  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20111001
+	  Merge with NetBSD make, pick up
+	  o ensure .PREFIX is set for .PHONY
+	    and .TARGET set for .PHONY run via .END
+	  o __dead used consistently
+	
 2011-09-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): 20110909 is a better number ;-)
