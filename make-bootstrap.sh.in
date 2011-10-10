@@ -47,8 +47,8 @@ do_compile() {
 
 do_link() {
 	output="$1"; shift
-	echo ${CC} ${LDFLAGS} -o "$output" "$@" ${LIBS}
-	${CC} ${LDFLAGS} -o "$output" "$@" ${LIBS}
+	echo ${CC} ${LDSTATIC} ${LDFLAGS} -o "$output" "$@" ${LIBS}
+	${CC} ${LDSTATIC} ${LDFLAGS} -o "$output" "$@" ${LIBS}
 }
 
 BASE_OBJECTS="arch.o buf.o compat.o cond.o dir.o for.o getopt hash.o \

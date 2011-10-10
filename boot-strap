@@ -63,7 +63,7 @@
 #	Simon J. Gerraty <sjg@crufty.net>
 
 # RCSid:
-#	$Id: boot-strap,v 1.37 2011/05/05 16:27:34 sjg Exp $
+#	$Id: boot-strap,v 1.38 2011/10/10 05:59:14 sjg Exp $
 #
 #	@(#) Copyright (c) 2001 Simon J. Gerraty
 #
@@ -166,12 +166,18 @@ AddConfigure() {
 GetDir() {
 	match="$1"
 	shift
+	fmatch="$1"
+	shift
 	for dir in $*
 	do
 		[ -d "$dir" ] || continue
 		case "/$dir/" in
 		*$match*) ;;
 		*) continue;;
+		esac
+		case "$fmatch" in
+		.) ;;
+		*) [ -s $dir/$fmatch ] || continue;;
 		esac
 		case "$dir/" in
 		*./*) cd "$dir" && 'pwd';;
@@ -237,17 +243,19 @@ add_path () {
 }
 
 
-srcdir=`GetDir /bmake "$srcdir" "$2" "$Mydir" ./bmake* "$Mydir"/../bmake*`
+srcdir=`GetDir /bmake make-bootstrap.sh.in "$srcdir" "$2" "$Mydir" ./bmake* "$Mydir"/../bmake*`
 [ -d "${srcdir:-/dev/null}" ] || Usage
 case "$mksrc" in
 none|-) # we don't want it
 	mksrc=
 	;;
 .../*)	# find here or above
-	mksrc=`FindHereOrAbove -C "$Mydir" -d "$mksrc"`
+	mksrc=`FindHereOrAbove -C "$Mydir" -s "$mksrc/sys.mk"`
+	# that found a file
+	mksrc=`dirname $mksrc`
 	;;
 *)	# guess we want mksrc...
-	mksrc=`GetDir /mk "$mksrc" "$3" ./mk* "$srcdir"/mk* "$srcdir"/../mk*`
+	mksrc=`GetDir /mk sys.mk "$mksrc" "$3" ./mk* "$srcdir"/mk* "$srcdir"/../mk*`
 	[ -d "${mksrc:-/dev/null}" ] || Usage "Use '-m none' to build without mksrc"
 	;;
 esac
