@@ -1,3 +1,9 @@
+2011-11-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20111111
+	  Merge with NetBSD make, pick up
+	  o debug output for .PARSEDIR and .PARSEFILE
+
 2011-10-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION):  bump version to 20111010

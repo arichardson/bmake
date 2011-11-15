@@ -18,7 +18,7 @@ DDEESSCCRRIIPPTTIIOONN
      mkdep(1)).
 
      This manual page is intended as a reference document only.  For a more
-     thorough description of bbmmaakkee and makefiles, please refer to _M_a_k_e _- _A
+     thorough description of bbmmaakkee and makefiles, please refer to _P_M_a_k_e _- _A
      _T_u_t_o_r_i_a_l.
 
      bbmmaakkee will prepend the contents of the _M_A_K_E_F_L_A_G_S environment variable to
@@ -584,7 +584,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      _._P_A_R_S_E_F_I_L_E      The basename of the current `_M_a_k_e_f_i_l_e' being parsed.
                      This variable and `_._P_A_R_S_E_D_I_R' are both set only while the
-                     `_M_a_k_e_f_i_l_e_s' are being parsed.
+                     `_M_a_k_e_f_i_l_e_s' are being parsed.  If you want to retain
+                     their current values, assign them to a variable using
+                     assignment with expansion: (`::==').
 
      _._P_A_T_H           A variable that represents the list of directories that
                      bbmmaakkee will search for files.  The search list should be
@@ -1312,7 +1314,7 @@ DDEESSCCRRIIPPTTIIOONN
      mkdep(1)).
 
      This manual page is intended as a reference document only.  For a more
-     thorough description of bbmmaakkee and makefiles, please refer to _M_a_k_e _- _A
+     thorough description of bbmmaakkee and makefiles, please refer to _P_M_a_k_e _- _A
      _T_u_t_o_r_i_a_l.
 
      bbmmaakkee will prepend the contents of the _M_A_K_E_F_L_A_G_S environment variable to
@@ -1878,7 +1880,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      _._P_A_R_S_E_F_I_L_E      The basename of the current `_M_a_k_e_f_i_l_e' being parsed.
                      This variable and `_._P_A_R_S_E_D_I_R' are both set only while the
-                     `_M_a_k_e_f_i_l_e_s' are being parsed.
+                     `_M_a_k_e_f_i_l_e_s' are being parsed.  If you want to retain
+                     their current values, assign them to a variable using
+                     assignment with expansion: (`::==').
 
      _._P_A_T_H           A variable that represents the list of directories that
                      bbmmaakkee will search for files.  The search list should be
@@ -2586,4 +2590,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                      August 28, 2011                     NetBSD 5.1
+NetBSD 5.1                     November 6, 2011                     NetBSD 5.1
