@@ -1,4 +1,4 @@
-.\"	$NetBSD: make.1,v 1.197 2011/11/13 18:18:35 dholland Exp $
+.\"	$NetBSD: make.1,v 1.200 2012/02/03 21:39:25 sjg Exp $
 .\"
 .\" Copyright (c) 1990, 1993
 .\"	The Regents of the University of California.  All rights reserved.
@@ -29,7 +29,7 @@
 .\"
 .\"	from: @(#)make.1	8.4 (Berkeley) 3/19/94
 .\"
-.Dd November 6, 2011
+.Dd February 3, 2012
 .Dt MAKE 1
 .Os
 .Sh NAME
@@ -788,6 +788,9 @@ will not create .meta files in
 This can be overridden by setting
 .Va bf
 to a value which represents True.
+.It Pa env
+For debugging, it can be useful to inlcude the environment
+in the .meta file.
 .It Pa verbose
 If in "meta" mode, print a clue about the target being built.
 This is useful if the build is otherwise running silently.
@@ -803,6 +806,7 @@ See also
 If
 .Va bf
 is True, when a .meta file is created, mark the target
+.Ic .SILENT .
 .El
 .It Va .MAKE.META.BAILIWICK
 In "meta" mode, provides a list of prefixes which
@@ -1256,6 +1260,9 @@ The ODE convention is that
 should start and end with a period.
 For example.
 .Dl ${LINKS:@.LINK.@${LN} ${TARGET} ${.LINK.}@}
+.Pp
+However a single character varaiable is often more readable:
+.Dl ${MAKE_PRINT_VAR_ON_ERROR:@v@$v='${$v}'${.newline}@}
 .It Cm \&:U Ns Ar newval
 If the variable is undefined
 .Ar newval
@@ -1277,6 +1284,8 @@ The path of the node which has the same name as the variable
 is the value.
 If no such node exists or its path is null, then the
 name of the variable is used.
+In order for this modifier to work, the name (node) must at least have 
+appeared on the rhs of a dependency.
 .Sm off
 .It Cm \&:\&! Ar cmd Cm \&!
 .Sm on
@@ -2018,12 +2027,12 @@ The basic make syntax is compatible between different versions of make,
 however the special variables, variable modifiers and conditionals are not.
 .Pp
 The way that parallel makes are scheduled changed in
-.Nx 4.0
+NetBSD 4.0
 so that .ORDER and .WAIT apply recursively to the dependent nodes.
 The algorithms used may change again in the future.
 .Pp
 The way that .for loop variables are substituted changed after
-.Nx 5.0
+NetBSD 5.0
 so that they still appear to be variable expansions.
 In particular this stops them being treated as syntax, and removes some
 obscure problems using them in .if statements.
@@ -2046,7 +2055,6 @@ to disable this behavior.
 .Xr mkdep 1
 .Sh HISTORY
 .Nm
-is derived from
-.Nx
+is derived from NetBSD
 .Xr make 1 .
 It uses autoconf to facilitate portability to other platforms.

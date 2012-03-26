@@ -1,3 +1,14 @@
+2012-03-25  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120325
+	  Merge with NetBSD make, pick up
+	  o fix parsing of :[#] in conditionals.
+
+2012-02-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in: replace use of .Nx in bmake.1 with NetBSD
+	  since some systems cannot cope with .Nx <version>
+
 2011-11-14  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20111111

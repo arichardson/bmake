@@ -484,6 +484,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  in `_._C_U_R_D_I_R'.  This can be overridden by set-
                                  ting _b_f to a value which represents True.
 
+                     _e_n_v         For debugging, it can be useful to inlcude
+                                 the environment in the .meta file.
+
                      _v_e_r_b_o_s_e     If in "meta" mode, print a clue about the
                                  target being built.  This is useful if the
                                  build is otherwise running silently.  The
@@ -497,7 +500,7 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  ..NNOOMMEETTAA__CCMMPP.
 
                      _s_i_l_e_n_t_= _b_f  If _b_f is True, when a .meta file is created,
-                                 mark the target
+                                 mark the target ..SSIILLEENNTT.
 
      _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
                      In "meta" mode, provides a list of prefixes which match
@@ -778,6 +781,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
           period.  For example.
                 ${LINKS:@.LINK.@${LN} ${TARGET} ${.LINK.}@}
 
+          However a single character varaiable is often more readable:
+                ${MAKE_PRINT_VAR_ON_ERROR:@v@$v='${$v}'${.newline}@}
+
      ::UU_n_e_w_v_a_l
           If the variable is undefined _n_e_w_v_a_l is the value.  If the variable
           is defined, the existing value is returned.  This is another ODE
@@ -794,7 +800,8 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::PP   The path of the node which has the same name as the variable is the
           value.  If no such node exists or its path is null, then the name of
-          the variable is used.
+          the variable is used.  In order for this modifier to work, the name
+          (node) must at least have appeared on the rhs of a dependency.
 
      ::!!_c_m_d!!
           The output of running _c_m_d is the value.
@@ -1780,6 +1787,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  in `_._C_U_R_D_I_R'.  This can be overridden by set-
                                  ting _b_f to a value which represents True.
 
+                     _e_n_v         For debugging, it can be useful to inlcude
+                                 the environment in the .meta file.
+
                      _v_e_r_b_o_s_e     If in "meta" mode, print a clue about the
                                  target being built.  This is useful if the
                                  build is otherwise running silently.  The
@@ -1793,7 +1803,7 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                                  ..NNOOMMEETTAA__CCMMPP.
 
                      _s_i_l_e_n_t_= _b_f  If _b_f is True, when a .meta file is created,
-                                 mark the target
+                                 mark the target ..SSIILLEENNTT.
 
      _._M_A_K_E_._M_E_T_A_._B_A_I_L_I_W_I_C_K
                      In "meta" mode, provides a list of prefixes which match
@@ -2074,6 +2084,9 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
           period.  For example.
                 ${LINKS:@.LINK.@${LN} ${TARGET} ${.LINK.}@}
 
+          However a single character varaiable is often more readable:
+                ${MAKE_PRINT_VAR_ON_ERROR:@v@$v='${$v}'${.newline}@}
+
      ::UU_n_e_w_v_a_l
           If the variable is undefined _n_e_w_v_a_l is the value.  If the variable
           is defined, the existing value is returned.  This is another ODE
@@ -2090,7 +2103,8 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::PP   The path of the node which has the same name as the variable is the
           value.  If no such node exists or its path is null, then the name of
-          the variable is used.
+          the variable is used.  In order for this modifier to work, the name
+          (node) must at least have appeared on the rhs of a dependency.
 
      ::!!_c_m_d!!
           The output of running _c_m_d is the value.
@@ -2590,4 +2604,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                     November 6, 2011                     NetBSD 5.1
+NetBSD 5.1                     February 3, 2012                     NetBSD 5.1
