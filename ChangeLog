@@ -1,3 +1,20 @@
+2012-04-24  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120420
+	  Merge with NetBSD make, pick up
+	  o restore duplicate supression in .MAKE.MAKEFILES
+	    runtime saving can be significant.
+	  o Var_Subst() uses Buf_DestroyCompact() to reduce memory
+	    consumption up to 20%. 
+
+2012-04-20  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120420
+          Merge with NetBSD make, pick up
+	  o remove duplicate supression in .MAKE.MAKEFILES
+	  o improved dir cache behavior
+	  o gmake'ish export command
+	
 2012-03-25  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120325

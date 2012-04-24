@@ -892,7 +892,8 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
              Export the specified global variable.  If no variable list is
              provided, all globals are exported except for internal variables
              (those that start with `.').  This is not affected by the --XX
-             flag, so should be used with caution.
+             flag, so should be used with caution.  For compatibility with
+             other bbmmaakkee programs `export variable=value' is also accepted.
 
              Appending a variable name to _._M_A_K_E_._E_X_P_O_R_T_E_D is equivalent to
              exporting a variable.
@@ -2195,7 +2196,8 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
              Export the specified global variable.  If no variable list is
              provided, all globals are exported except for internal variables
              (those that start with `.').  This is not affected by the --XX
-             flag, so should be used with caution.
+             flag, so should be used with caution.  For compatibility with
+             other bbmmaakkee programs `export variable=value' is also accepted.
 
              Appending a variable name to _._M_A_K_E_._E_X_P_O_R_T_E_D is equivalent to
              exporting a variable.
@@ -2604,4 +2606,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                     February 3, 2012                     NetBSD 5.1
+NetBSD 5.1                      April 24, 2012                      NetBSD 5.1

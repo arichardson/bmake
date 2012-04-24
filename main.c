@@ -280,9 +280,10 @@ parse_debug_options(const char *argvalue)
 		case 'F':
 			if (debug_file != stdout && debug_file != stderr)
 				fclose(debug_file);
-			if (*++modules == '+')
+			if (*++modules == '+') {
+				modules++;
 				mode = "a";
-			else
+			} else
 				mode = "w";
 			if (strcmp(modules, "stdout") == 0) {
 				debug_file = stdout;
