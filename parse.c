@@ -132,13 +132,6 @@ __RCSID("$NetBSD: parse.c,v 1.184 2012/04/24 20:12:16 sjg Exp $");
 #include <stdarg.h>
 #include <stdio.h>
 
-#ifndef MAP_FILE
-#define MAP_FILE 0
-#endif
-#ifndef MAP_COPY
-#define MAP_COPY MAP_PRIVATE
-#endif
-
 #include "make.h"
 #include "hash.h"
 #include "dir.h"

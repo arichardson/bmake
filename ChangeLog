@@ -1,3 +1,18 @@
+2012-05-18  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120518
+	  Merge with NetBSD make, pick up
+	  o use _exit(2) in signal hanlder
+	  o Don't use the [dir] cache when building nodes that might have
+	    changed since the last exec.
+	  o Avoid nested extern declaration warnings.
+
+2012-04-27  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.c (fgetLine): avoid %z - not portable.
+	* parse.c: Since we moved include of sys/mman.h
+	  and def's of MAP_COPY etc. we got dups from a merge.
+
 2012-04-24  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120420
