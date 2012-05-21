@@ -1,3 +1,9 @@
+2012-05-20  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120520
+	  Merge with NetBSD make, pick up
+	  o increased limit for nested conditionals.
+	
 2012-05-18  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120518
