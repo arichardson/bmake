@@ -1,3 +1,15 @@
+2012-05-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120530
+	  Merge with NetBSD make, pick up
+	  o compat.c: ignore empty command.
+
+2012-05-24  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120524
+	* FILES: add bsd.after-import.mk:
+	  A simple means of integrating bmake into a BSD build system.
+
 2012-05-20  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120520
