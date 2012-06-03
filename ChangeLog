@@ -1,3 +1,9 @@
+2012-06-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120602
+	  Merge with NetBSD make, pick up
+	  o for.c: handle quoted items in .for list
+
 2012-05-30  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120530
