@@ -183,7 +183,10 @@ CompatInterrupt(int signo)
 	}
 
     }
-    _exit(signo);
+    if (signo == SIGQUIT)
+	_exit(signo);
+    bmake_signal(signo, SIG_DFL);
+    raise(signo);
 }
 
 /*-

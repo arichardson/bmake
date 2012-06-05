@@ -24,7 +24,6 @@ dir.c
 dir.h
 find_lib.sh
 for.c
-getenv.c
 getopt.c
 hash.c
 hash.h

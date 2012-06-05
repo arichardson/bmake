@@ -972,7 +972,10 @@ main(int argc, char **argv)
 	    const char *ep;
 
 	    if (!(ep = getenv(MAKE_LEVEL))) {
-		ep = "0";
+#ifdef MAKE_LEVEL_SAFE
+		if (!(ep = getenv(MAKE_LEVEL_SAFE)))
+#endif
+		    ep = "0";
 	    }
 	    Var_Set(MAKE_LEVEL, ep, VAR_GLOBAL, 0);
 	    snprintf(tmp, sizeof(tmp), "%u", myPid);

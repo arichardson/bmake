@@ -1,3 +1,18 @@
+2012-06-04  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): bump version to 20120604
+	  Merge with NetBSD make, pick up
+	  o util.c and var.c share same var for tracking if environ
+	    has been reallocated.
+	  o util.c provide getenv with setenv.
+	* Add MAKE_LEVEL_SAFE as an alternate means of passing MAKE_LEVEL
+	  when the shell actively strips .MAKE.* from the environment.
+	  We still refer to the variable always as .MAKE.LEVEL
+	* util.c fix bug in findenv() was finding prefix of name.
+	* compat.c: re-raising SIGINT etc after running .INTERRUPT
+	  results in more reliable termination of all activity on many
+	  platforms.
+
 2012-06-02  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): bump version to 20120602
