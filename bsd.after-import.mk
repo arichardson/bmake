@@ -1,4 +1,4 @@
-# $Id: bsd.after-import.mk,v 1.2 2012/06/01 06:43:24 sjg Exp $
+# $Id: bsd.after-import.mk,v 1.3 2012/06/06 17:48:14 sjg Exp $
 
 # This makefile is for use when integrating bmake into a BSD build
 # system.  Use this makefile after importing bmake.
@@ -41,7 +41,7 @@ BOOTSTRAP_ARGS = \
 
 # run boot-strap with minimal influence
 bootstrap:	${BMAKE_SRC}/boot-strap ${MAKEFILE}
-	HOME=/ ${BMAKE_SRC}/boot-strap ${BOOTSTRAP_ARGS}
+	HOME=/ ${BMAKE_SRC}/boot-strap ${BOOTSTRAP_ARGS} ${BOOTSTRAP_XTRAS}
 	touch ${.TARGET}
 
 # Makefiles need a little more tweaking than say config.h
@@ -79,6 +79,7 @@ ${.CURDIR}/Makefile:	bootstrap ${MAKEFILE} .PRECIOUS
 	echo 'CLEANFILES+= bootstrap'; \
 	echo; echo 'after-import: ${_this:S,${SRCTOP},\${SRCTOP},}'; \
 	echo '	cd $${.CURDIR} && $${.MAKE} -f ${_this:S,${SRCTOP},\${SRCTOP},}'; \
+	echo; echo '.-include "Makefile.inc"'; \
 	echo ) > ${.TARGET:T}.new
 	@mv ${.TARGET:T}.new ${.TARGET}
 
