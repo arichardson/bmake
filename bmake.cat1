@@ -118,7 +118,7 @@ DDEESSCCRRIIPPTTIIOONN
              _t       Print debugging information about target list mainte-
                      nance.
 
-             _V       Force the --VV option to print raw value of variables.
+             _V       Force the --VV option to print raw values of variables.
 
              _v       Print debugging information about variable assignment.
 
@@ -1428,6 +1428,8 @@ DDEESSCCRRIIPPTTIIOONN
              _t       Print debugging information about target list mainte-
                      nance.
 
+             _V       Force the --VV option to print raw value of variables.
+
              _v       Print debugging information about variable assignment.
 
              _x       Run shell commands with --xx so the actual commands are
@@ -1739,6 +1741,10 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
      _._M_A_K_E_._D_E_P_E_N_D_F_I_L_E
                      Names the makefile (default `_._d_e_p_e_n_d') from which gener-
                      ated dependencies are read.
+
+     _._M_A_K_E_._E_X_P_A_N_D___V_A_R_I_A_B_L_E_S
+                     A boolean that controls the default behavior of the --VV
+                     option.
 
      _._M_A_K_E_._E_X_P_O_R_T_E_D  The list of variables exported by bbmmaakkee.
 
@@ -2612,4 +2618,4 @@ HHIISSTTOORRYY
      bbmmaakkee is derived from NetBSD make(1).  It uses autoconf to facilitate
      portability to other platforms.
 
-NetBSD 5.1                      April 24, 2012                      NetBSD 5.1
+NetBSD 5.1                      August 30, 2012                     NetBSD 5.1
