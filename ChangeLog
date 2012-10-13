@@ -1,3 +1,10 @@
+2012-10-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): 20121010
+	  o protect syntax that only bmake parses correctly.
+	  o remove auto setting of FORCE_MACHINE, use configure's
+	    --with-force-machine=whatever if that is desired.
+	
 2012-10-08  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in: do not lose history from make.1 when generating bmake.1
