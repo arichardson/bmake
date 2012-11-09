@@ -1,3 +1,11 @@
+2012-11-09  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): 20121109
+	  Merge with NetBSD make, pick up
+	  o make.c: MakeBuildChild: return 0 so search continues if a
+	    .ORDER dependency is detected.
+	  o unit-tests/order: test the above
+	
 2012-11-02  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): 20121102
