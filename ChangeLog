@@ -1,3 +1,8 @@
+2012-11-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile.in (MAKE_VERSION): 20121111
+	  fix generation of bmake.cat1
+
 2012-11-09  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): 20121109
