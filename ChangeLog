@@ -1,3 +1,19 @@
+2012-12-12  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* makefile.in: add a simple makefile for folk who insist on
+	  ./configure; make; make install
+	  it just runs boot-strap
+	* include mk/* to accommodate the above
+	* boot-strap:  re-work to accommodate the above
+	  mksrc defaults to $Mydir/mk
+	  allow op={configure,build,install,clean,all}
+	  add options to facilitate install
+	* Makefile.config.in: just the bits set by configure
+	* Makefile: bump version to 20121212
+	  abandon Makefile.in (NetBSD Makefile)
+	  leverage mk/* instead
+	* configure.in: ensure srcdir is absolute
+
 2012-11-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile.in (MAKE_VERSION): 20121111
