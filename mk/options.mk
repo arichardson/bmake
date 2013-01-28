@@ -1,4 +1,4 @@
-# $Id: options.mk,v 1.4 2012/11/11 22:36:00 sjg Exp $
+# $Id: options.mk,v 1.6 2013/01/28 19:28:52 sjg Exp $
 #
 #	@(#) Copyright (c) 2012, Simon J. Gerraty
 #
@@ -15,27 +15,33 @@
 
 # Inspired by FreeBSD bsd.own.mk, but intentionally simpler.
 
-# Options are listed in either OPTIONS_DEFAULT_{YES,NO}
+# Options are normally listed in either OPTIONS_DEFAULT_{YES,NO}
+# We convert these to ${OPTION}/{yes,no} in OPTIONS_DEFAULT_VALUES.
+# We add the OPTIONS_DEFAULT_NO first so they take precedence.
+# This allows override of an OPTIONS_DEFAULT_YES by adding it to
+# OPTIONS_DEFAULT_NO or adding ${OPTION}/no to OPTIONS_DEFAULT_VALUES.
+# An OPTIONS_DEFAULT_NO option can only be overridden by putting
+# ${OPTION}/yes in OPTIONS_DEFAULT_VALUES.
 # A makefile may set NO_* (or NO*) to indicate it cannot do something.
 # User sets WITH_* and WITHOUT_* to indicate what they want.
 # We set MK_* which is then all we need care about.
+OPTIONS_DEFAULT_VALUES += \
+	${OPTIONS_DEFAULT_NO:O:u:S,$,/no,} \
+	${OPTIONS_DEFAULT_YES:O:u:S,$,/yes,}
 
-# Pocess NO options first so they can take precedence.
-# User/site may add an option to OPTIONS_DEFAULT_NO that
-# we have in OPTIONS_DEFAULT_YES.
-.for o in ${OPTIONS_DEFAULT_NO:O:u}
-.if defined(WITH_$o) && !defined(NO_$o) && !defined(NO$o)
-MK_$o ?= yes
+.for o in ${OPTIONS_DEFAULT_VALUES:M*/*}
+.if ${o:T:tl} == "no"
+.if defined(WITH_${o:H}) && !defined(NO_${o:H}) && !defined(NO${o:H})
+MK_${o:H} ?= yes
 .else
-MK_$o ?= no
+MK_${o:H} ?= no
 .endif
-.endfor
-
-.for o in ${OPTIONS_DEFAULT_YES:O:u}
-.if defined(WITHOUT_$o) || defined(NO_$o) || defined(NO$o)
-MK_$o ?= no
 .else
-MK_$o ?= yes
+.if defined(WITHOUT_${o:H}) || defined(NO_${o:H}) || defined(NO${o:H})
+MK_${o:H} ?= no
+.else
+MK_${o:H} ?= yes
+.endif
 .endif
 .endfor
 

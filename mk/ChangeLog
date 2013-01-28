@@ -1,3 +1,12 @@
+2013-01-23  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): bump version to 20130123
+	* meta.stage.mk: add stage_links (hard links).
+	  if doing hard links, we add dest to link as well.
+	  Default the stage dir for [sym]links to STAGE_OBJTOP since
+	  these are typically specified as absolute paths.
+	  Add -m "mode" flag to StageFiles and StageAs.
+
 2012-11-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): bump version to 20121111

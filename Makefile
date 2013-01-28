@@ -1,7 +1,7 @@
-#	$Id: Makefile,v 1.3 2012/12/29 19:31:55 sjg Exp $
+#	$Id: Makefile,v 1.5 2013/01/28 19:31:58 sjg Exp $
 
 # Base version on src date
-MAKE_VERSION= 20121212
+MAKE_VERSION= 20130123
 
 PROG=	bmake
 
@@ -119,6 +119,7 @@ WITH_INSTALL_AS_USER=
 
 # supress with -DWITHOUT_*
 OPTIONS_DEFAULT_YES+= \
+	AUTOCONF_MK \
 	INSTALL_MK \
 	PROG_LINK
 
@@ -186,7 +187,9 @@ MANDIR= ${SHAREDIR}/man
 .if !exists(.depend)
 ${OBJS}: config.h
 .endif
+.if ${MK_AUTOCONF_MK} == "yes"
 .include <autoconf.mk>
+.endif
 
 # make sure that MAKE_VERSION gets updated.
 main.o: ${SRCS} ${MAKEFILE}
