@@ -1,3 +1,16 @@
+2013-03-03  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20130303
+	  Merge with NetBSD make, pick up
+	  o main.c: set .MAKE.OS to utsname.sysname
+	  o job.c: more checks for read and poll errors
+	  o var.c: lose VarChangeCase() saves 4% time
+
+2013-03-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* boot-strap: remove MAKEOBJDIRPREFIX from environment since we
+	  want to use MAKEOBJDIR
+
 2013-01-27  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Merge with NetBSD make, pick up

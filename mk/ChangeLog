@@ -1,3 +1,40 @@
+2013-03-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* gendirdeps.mk: if .MAKE.DEPENDFILE_DEFAULT is not machine
+	  qualified but _DEPENDFILE is, and .MAKE.DEPENDFILE_DEFAULT exists
+	  but _DEPENDFILE does not, compare the new _DEPENDFILE against
+	  .MAKE.DEPENDFILE_DEFAULT and discard if the same.
+
+2013-03-08  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.stage.mk: use STAGE_TARGETS to control .ORDER
+	  and hook to all: via staging:
+
+2013-03-07  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* sys.dependfile.mk (.MAKE.DEPENDFILE_DEFAULT): 
+	  use a separate variable for the default .MAKE.DEPENDFILE value
+	  so that it can be controlled independently of
+	  .MAKE.DEPENDFILE_PREFERENCE
+
+	* meta.stage.mk: throw error if cp fails etc.
+	  Stage*() return early if passed no args.
+	  .ORDER stage_*
+
+2013-03-03  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): bump version
+	* gendirdeps.mk: handle multiple M2D_OBJROOTS better.
+
+2013-02-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): bump version to 20130210
+	* import latest dirdeps.mk, gendirdeps.mk and meta2deps.py 
+	  from Juniper. 
+	  o dirdeps.mk now fully supports TARGET_SPEC consisting of more
+	    than just MACHINE.
+	  o no longer use DEP_MACHINE from Makefile.depend* so remove it.
+	
 2013-01-23  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): bump version to 20130123
