@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.25 2013/02/14 22:30:04 sjg Exp $
+# $Id: dirdeps.mk,v 1.27 2013/03/23 02:24:01 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -86,13 +86,18 @@
 #
 #	For example:
 #
-#		# variables other than MACHINE might be optional
+#		# Always list MACHINE first, 
+#		# other variables might be optional.
 #		TARGET_SPEC_VARS = MACHINE TARGET_OS
 #		.if ${TARGET_SPEC:Uno:M*,*} != ""
 #		_tspec := ${TARGET_SPEC:S/,/ /g}
 #		MACHINE := ${_tspec:[1]}
 #		TARGET_OS := ${_tspec:[2]}
 #		# etc.
+#		# We need to stop that TARGET_SPEC affecting any submakes
+#		# and deal with MACHINE=${TARGET_SPEC} in the environment.
+#		TARGET_SPEC =
+#		.export TARGET_SPEC ${TARGET_SPEC_VARS}
 #		.for v in ${TARGET_SPEC_VARS:O:u}
 #		.if empty($v)
 #		.undef $v
@@ -246,17 +251,18 @@ _DEP_RELDIR := ${DEP_RELDIR}
 SKIP_HOSTDIR ?=
 
 NSkipHostDir = ${SKIP_HOSTDIR:N*.host:S,$,.host,:N.host:${M_ListToSkip}}
-NSkipHostDep = ${SKIP_HOSTDIR:R:@d@*/$d*.host@:${M_ListToSkip}}
 
 # things we always skip
 # SKIP_DIRDEPS allows for adding entries on command line.
 SKIP_DIR += .host *.WAIT ${SKIP_DIRDEPS}
+SKIP_DIR.host += ${SKIP_HOSTDIR}
 
-.ifdef HOSTPROG
-SKIP_DIR += ${SKIP_HOSTDIR}
-.endif
+DEP_SKIP_DIR = ${SKIP_DIR} \
+	${SKIP_DIR.${DEP_TARGET_SPEC}:U} \
+	${SKIP_DIR.${DEP_MACHINE}:U} \
+	${SKIP_DIRDEPS.${DEP_MACHINE}:U}
 
-NSkipDir = ${SKIP_DIR:${M_ListToSkip}}
+NSkipDir = ${DEP_SKIP_DIR:${M_ListToSkip}}
 
 .if defined(NO_DIRDEPS) || defined(NODIRDEPS)
 # confine ourselves to the original dir
@@ -374,9 +380,18 @@ _build_dirs += ${_machines:N${DEP_TARGET_SPEC}:@m@${_CURDIR}.$m@}
 .endif
 
 .if !empty(DIRDEPS)
+# these we reset each time through as they can depend on DEP_MACHINE
+DEP_DIRDEPS_FILTER = \
+	${DIRDEPS_FILTER.${DEP_TARGET_SPEC}:U} \
+	${DIRDEPS_FILTER.${DEP_MACHINE}:U} \
+	${DIRDEPS_FILTER:U} 
+.if empty(DEP_DIRDEPS_FILTER)
+# something harmless
+DEP_DIRDEPS_FILTER = U
+.endif
 
 # this is what we start with
-__depdirs := ${DIRDEPS:${NSkipDir}:${DIRDEPS_FILTER:ts:}:O:u:@d@${SRCTOP}/$d@}
+__depdirs := ${DIRDEPS:${NSkipDir}:${DEP_DIRDEPS_FILTER:ts:}:O:u:@d@${SRCTOP}/$d@}
 
 # some entries may be qualified with .<machine> 
 # the :M*/*/*.* just tries to limit the dirs we check to likely ones.

@@ -565,6 +565,11 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
                      `MAKEFLAGS' is re-exported whenever `_._M_A_K_E_O_V_E_R_R_I_D_E_S' is
                      modified.
 
+     _._M_A_K_E_._P_A_T_H___F_I_L_E_M_O_N
+                     If bbmmaakkee was built with filemon(4) support, this is set
+                     to the path of the device node.  This allows makefiles to
+                     test for this support.
+
      _._M_A_K_E_._P_I_D       The process-id of bbmmaakkee.
 
      _._M_A_K_E_._P_P_I_D      The parent process-id of bbmmaakkee.
@@ -1278,6 +1283,9 @@ SSPPEECCIIAALL TTAARRGGEETTSS
               sources are specified, the ..SSIILLEENNTT attribute is applied to every
               command in the file.
 
+     ..SSTTAALLEE   This target gets run when a dependency file contains stale
+              entries, having _._A_L_L_S_R_C set to the name of that dependency file.
+
      ..SSUUFFFFIIXXEESS
               Each source specifies a suffix to bbmmaakkee.  If no sources are
               specified, any previously specified suffixes are deleted.  It
@@ -1340,4 +1348,4 @@ BBUUGGSS
 
      There is no way of escaping a space character in a filename.
 
-NetBSD 5.1                     January 23, 2013                     NetBSD 5.1
+NetBSD 5.1                      March 22, 2013                      NetBSD 5.1
