@@ -1,3 +1,15 @@
+2013-03-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20130330
+	  Merge with NetBSD make, pick up
+	  o meta.c: refine the handling of .OODATE in commands.
+	    Rather than suppress command comparison for the entire script
+	    as though .NOMETA_CMP had been used, only suppress it for the
+	    one command line.
+	    This allows something like ${.OODATE:M.NOMETA_CMP} to be used to 
+	    suppress comparison of a command without otherwise affecting it.
+	  o make.1: document that
+
 2013-03-22  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (MAKE_VERSION): 20130321

@@ -1111,7 +1111,19 @@ SSPPEECCIIAALL SSOOUURRCCEESS ((AATTTTRRIIBBUUTTEESS))
                Ignore differences in commands when deciding if target is out
                of date.  This is useful if the command contains a value which
                always changes.  If the number of commands change, though, the
-               target will still be out of date.
+               target will still be out of date.  The same effect applies to
+               any command line that uses the variable _._O_O_D_A_T_E, which can be
+               used for that purpose even when not otherwise needed or
+               desired:
+
+
+                     skip-compare-for-some:
+                             @echo this will be compared
+                             @echo this will not ${.OODATE:M.NOMETA_CMP}
+                             @echo this will also be compared
+
+               The ::MM pattern suppresses any expansion of the unwanted vari-
+               able.
 
      ..NNOOPPAATTHH   Do not search for the target in the directories specified by
                ..PPAATTHH.
@@ -1348,4 +1360,4 @@ BBUUGGSS
 
      There is no way of escaping a space character in a filename.
 
-NetBSD 5.1                      March 22, 2013                      NetBSD 5.1
+NetBSD 5.1                      March 30, 2013                      NetBSD 5.1

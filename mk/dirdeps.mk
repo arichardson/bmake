@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.27 2013/03/23 02:24:01 sjg Exp $
+# $Id: dirdeps.mk,v 1.28 2013/03/25 21:11:43 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -97,13 +97,18 @@
 #		# We need to stop that TARGET_SPEC affecting any submakes
 #		# and deal with MACHINE=${TARGET_SPEC} in the environment.
 #		TARGET_SPEC =
-#		.export TARGET_SPEC ${TARGET_SPEC_VARS}
+#		# export but do not track
+#		.export-env TARGET_SPEC 
+#		.export ${TARGET_SPEC_VARS}
 #		.for v in ${TARGET_SPEC_VARS:O:u}
 #		.if empty($v)
 #		.undef $v
 #		.endif
 #		.endfor
 #		.endif
+#		# make sure we know what TARGET_SPEC is
+#		# as we may need it to find Makefile.depend*
+#		TARGET_SPEC = ${TARGET_SPEC_VARS:@v@${$v:U}@:ts,}
 #	
 
 .if ${.MAKE.LEVEL} == 0

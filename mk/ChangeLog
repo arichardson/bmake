@@ -1,3 +1,8 @@
+2013-03-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta2deps.py (MetaFile.__init__): ensure self.cwd is initialized.
+	* install-mk (MK_VERSION): bump version
+
 2013-03-21  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): bump version
