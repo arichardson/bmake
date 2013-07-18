@@ -1,3 +1,9 @@
+2013-07-16  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20130716
+	* own.mk: add GPROG as an option
+	* prog.mk: honor MK_GPROF==yes
+	
 2013-05-10  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20130505
