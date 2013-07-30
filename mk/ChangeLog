@@ -1,3 +1,12 @@
+2013-07-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20130726
+	  some updates from Juniper and FreeBSD
+	  o meta2deps.py: indicate file and line number when we hit parse
+	    errors
+	    also allow @file to provide huge list of .meta files.
+	* meta2deps.py: add try_parse() to cleanup the above.
+	
 2013-07-16  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20130716

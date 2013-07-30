@@ -472,7 +472,8 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
      _._M_A_K_E_._J_O_B_._P_R_E_F_I_X
                      If bbmmaakkee is run with _j then output for each target is
                      prefixed with a token `--- target ---' the first part of
-                     which can be controlled via _._M_A_K_E_._J_O_B_._P_R_E_F_I_X.
+                     which can be controlled via _._M_A_K_E_._J_O_B_._P_R_E_F_I_X.  If
+                     _._M_A_K_E_._J_O_B_._P_R_E_F_I_X is empty, no token is printed.
                      For example:
                      .MAKE.JOB.PREFIX=${.newline}---${.MAKE:T}[${.MAKE.PID}]
                      would produce tokens like `---make[1234] target ---' mak-
@@ -1373,4 +1374,4 @@ BBUUGGSS
 
      There is no way of escaping a space character in a filename.
 
-NetBSD 5.1                       July 15, 2013                      NetBSD 5.1
+NetBSD 5.1                       July 30, 2013                      NetBSD 5.1
