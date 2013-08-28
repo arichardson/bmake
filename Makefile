@@ -1,7 +1,7 @@
-#	$Id: Makefile,v 1.17 2013/07/30 19:13:53 sjg Exp $
+#	$Id: Makefile,v 1.18 2013/08/28 22:09:28 sjg Exp $
 
 # Base version on src date
-MAKE_VERSION= 20130730
+MAKE_VERSION= 20130828
 
 PROG=	bmake
 
