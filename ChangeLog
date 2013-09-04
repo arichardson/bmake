@@ -1,3 +1,16 @@
+2013-09-04  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20130904
+	  Merge with NetBSD make, pick up
+	  o Add VAR_INTERNAL context, so that internal setting of
+	    MAKEFILE does not override value set by makefiles.
+
+2013-09-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20130902
+	  Merge with NetBSD make, pick up
+	  o CompatRunCommand: only apply shellErrFlag when errCheck is true
+
 2013-08-28  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (MAKE_VERSION): 20130828
