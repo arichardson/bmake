@@ -118,7 +118,7 @@ __RCSID("$NetBSD: main.c,v 1.225 2013/09/14 15:09:34 matt Exp $");
 #include <sys/param.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
-#ifdef MAKE_NATIVE
+#if defined(MAKE_NATIVE) && defined(HAVE_SYSCTL)
 #include <sys/sysctl.h>
 #endif
 #include <sys/utsname.h>
@@ -917,9 +917,9 @@ main(int argc, char **argv)
 	}
 
 	if (!machine_arch) {
-#if defined(MAKE_NATIVE) && defined(CTL_HW) && defined(HW_MACHINE_ARCH)
+#if defined(MAKE_NATIVE) && defined(HAVE_SYSCTL) && defined(CTL_HW) && defined(HW_MACHINE_ARCH)
 	    static char machine_arch_buf[sizeof(utsname.machine)];
-	    const int mib[2] = { CTL_HW, HW_MACHINE_ARCH };
+	    int mib[2] = { CTL_HW, HW_MACHINE_ARCH };
 	    size_t len = sizeof(machine_arch_buf);
                 
 	    if (sysctl(mib, __arraycount(mib), machine_arch_buf,
