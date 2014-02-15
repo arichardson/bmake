@@ -1,3 +1,20 @@
+2014-02-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): bump version
+	* dirdeps.mk (_last_dependfile): use .INCLUDEDFROMFILE if
+	  available.
+
+2014-02-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* options.mk: avoid :U so this isn't bmake dependent
+
+2014-02-09  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* options.mk: cleanup and simplify semanitcs 
+	  NO_* dominates all, if both WITH_* and WITHOUT_*
+	  are defined then result is DOMINATE_* which defaults to "no".
+	  Ie. WITHOUT_ normally wins.
+
 2013-12-12  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): bump version

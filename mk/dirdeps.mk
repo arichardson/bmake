@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.29 2013/10/13 18:43:53 sjg Exp $
+# $Id: dirdeps.mk,v 1.30 2014/02/15 18:36:04 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -196,7 +196,11 @@ N_notmachine := ${.MAKE.DEPENDFILE_PREFERENCE:E:N*${MACHINE}*:${M_ListToSkip}}
 # if we were included recursively _DEP_TARGET_SPEC should be valid.
 .if empty(_DEP_TARGET_SPEC)
 # we may or may not have included a dependfile yet
+.if defined(.INCLUDEDFROMFILE)
+_last_dependfile := ${.INCLUDEDFROMFILE:M${.MAKE.DEPENDFILE_PREFIX}*}
+.else
 _last_dependfile := ${.MAKE.MAKEFILES:M*/${.MAKE.DEPENDFILE_PREFIX}*:[-1]}
+.endif
 .if !empty(_debug_reldir)
 .info ${DEP_RELDIR}.${DEP_TARGET_SPEC}: _last_dependfile='${_last_dependfile}'
 .endif

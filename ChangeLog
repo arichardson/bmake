@@ -1,3 +1,12 @@
+2014-02-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20140214
+	  Merge with NetBSD make, pick up
+	  o .INCLUDEFROM*
+	  o use Var_Value to get MAKEOBJDIR[PREFIX]
+	  o reduced realloc'ign in brk_string.
+	* configure.in: add a check for compiler supporting __func__
+
 2014-01-03  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* boot-strap: ignore mksrc=none
