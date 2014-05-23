@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.30 2014/02/15 18:36:04 sjg Exp $
+# $Id: dirdeps.mk,v 1.35 2014/05/03 06:27:56 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -44,7 +44,7 @@
 #	All unqualified entries end up being qualified with .${TARGET_SPEC}
 #	and partially qualified (if TARGET_SPEC_VARS has multiple
 #	entries) are also expanded to a full .<target_spec>.
-#	The  _DIRDEPS_USE target uses the suffix to set TARGET_SPEC
+#	The  _DIRDEP_USE target uses the suffix to set TARGET_SPEC
 #	correctly when visiting each entry.
 #
 #	The fully qualified directory entries are used to construct a
@@ -71,7 +71,7 @@
 #
 # TARGET_SPEC_VARS
 #	The default value is just MACHINE, and for most environments
-#	this is sufficient.  The _DIRDEPS_USE target actually sets
+#	this is sufficient.  The _DIRDEP_USE target actually sets
 #	both MACHINE and TARGET_SPEC to the suffix of the current
 #	target so that in the general case TARGET_SPEC can be ignored.
 #
@@ -243,7 +243,8 @@ DEP_MACHINE := ${_DEP_TARGET_SPEC}
 # we can use this as a clue to do initialization and other one time things.
 .if !target(_DIRDEP_USE)
 # make sure this target exists
-dirdeps:
+dirdeps: beforedirdeps .WAIT
+beforedirdeps:
 
 # We normally expect to be included by Makefile.depend.*
 # which sets the DEP_* macros below.
@@ -273,12 +274,15 @@ DEP_SKIP_DIR = ${SKIP_DIR} \
 
 NSkipDir = ${DEP_SKIP_DIR:${M_ListToSkip}}
 
-.if defined(NO_DIRDEPS) || defined(NODIRDEPS)
+.if defined(NO_DIRDEPS) || defined(NODIRDEPS) || defined(WITHOUT_DIRDEPS)
 # confine ourselves to the original dir
 DIRDEPS_FILTER += M${_DEP_RELDIR}*
 .endif
 
-# we supress SUBDIR when visiting the leaves
+# this is what we run below
+DIRDEP_MAKE?= ${.MAKE}
+
+# we suppress SUBDIR when visiting the leaves
 # we assume sys.mk will set MACHINE_ARCH
 # you can add extras to DIRDEP_USE_ENV
 # if there is no makefile in the target directory, we skip it.
@@ -289,7 +293,7 @@ _DIRDEP_USE:	.USE .MAKE
 		MACHINE_ARCH= NO_SUBDIR=1 ${DIRDEP_USE_ENV} \
 		TARGET_SPEC=${.TARGET:E} \
 		MACHINE=${.TARGET:E} \
-		${.MAKE} -C ${.TARGET:R} || exit 1; \
+		${DIRDEP_MAKE} -C ${.TARGET:R} || exit 1; \
 		break; \
 	done
 
@@ -401,7 +405,7 @@ DEP_DIRDEPS_FILTER = U
 .endif
 
 # this is what we start with
-__depdirs := ${DIRDEPS:${NSkipDir}:${DEP_DIRDEPS_FILTER:ts:}:O:u:@d@${SRCTOP}/$d@}
+__depdirs := ${DIRDEPS:${NSkipDir}:${DEP_DIRDEPS_FILTER:ts:}:C,//+,/,g:O:u:@d@${SRCTOP}/$d@}
 
 # some entries may be qualified with .<machine> 
 # the :M*/*/*.* just tries to limit the dirs we check to likely ones.

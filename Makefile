@@ -1,7 +1,7 @@
-#	$Id: Makefile,v 1.24 2014/02/14 23:42:49 sjg Exp $
+#	$Id: Makefile,v 1.26 2014/05/22 22:08:40 sjg Exp $
 
 # Base version on src date
-MAKE_VERSION= 20140214
+MAKE_VERSION= 20140522
 
 PROG=	bmake
 
@@ -117,7 +117,7 @@ MANTARGET?= man
 # turn this on by default - ignored if we are root
 WITH_INSTALL_AS_USER=
 
-# supress with -DWITHOUT_*
+# suppress with -DWITHOUT_*
 OPTIONS_DEFAULT_YES+= \
 	AUTOCONF_MK \
 	INSTALL_MK \
