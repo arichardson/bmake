@@ -1,3 +1,67 @@
+2014-11-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20141111
+
+	* mkopt.sh: use consistent semantics for _mk_opt and _mk_opts
+
+2014-11-09  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* FILES: include mkopt.sh which allows handling options in shell
+	  scripts in a manner compatible with options.mk
+
+2014-10-12  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.stage.mk: ensure only _STAGED_DIRS under objroot are used
+	  for GENDIRDEPS_FILTER to avoid surprises.
+
+2014-10-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+	
+	* dirdeps.mk (NSkipHostDir): this needs SRCTOP prepended since by
+	  the time it is applied to __depdirs they have.
+	
+	* dirdeps.mk fix filtering of _machines since M_dep_qual_fixes
+	  expects patterns like *.${MACHINE}
+	
+	* cython.mk (pyprefix?): use pyprefix to find python bits
+	  since prefix might be something else (where we install our
+	  stuff)
+	
+2014-09-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20140911
+	
+	* dirdeps.mk: add bootstrap target to simplify adding support for
+	  new MACHINE.
+	
+2014-09-01  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* gendirdeps.mk: Add handling of GENDIRDEPS_FILTER_DIR_VARS and
+	  GENDIRDEPS_FILTER_VARS to make it easier to produce sharable
+	  Makefile.depend files.
+
+2014-08-28  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20140828
+	
+	* cython.mk: capture logic for building python extension modules
+	  with Cython.
+
+2014-08-08  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.stage.mk (_STAGE_AS_BASENAME_USE): Add StageAs variant
+
+2014-08-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20140801
+
+	* dep.mk: use explicit MKDEP_MK rather than overload MKDEP to
+	identify the autodep.mk variant. 
+	
+	* sys.dependfile.mk: delete .MAKE.DEPENDFILE if its
+	initial value does not match .MAKE.DEPENDFILE_PREFIX
+
+	* meta.autodep.mk: if _bootstrap_dirdeps add RELDIR to DIRDEPS
+
 2014-05-22  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20140522
