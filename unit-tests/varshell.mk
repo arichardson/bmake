@@ -1,9 +1,9 @@
-# $Id: varshell.mk,v 1.2 2014/11/06 02:05:28 sjg Exp $
+# $Id: varshell.mk,v 1.3 2015/04/10 20:46:18 sjg Exp $
 #
 # Test VAR != shell command
 
 EXEC_FAILED		!= /bin/no/such/command 2> /dev/null
-TERMINATED_BY_SIGNAL	!= kill -ALRM $$$$
+TERMINATED_BY_SIGNAL	!= kill -14 $$$$
 ERROR_NO_OUTPUT		!= false
 ERROR_WITH_OUTPUT	!= echo "output before the error"; false
 NO_ERROR_NO_OUTPUT	!= true

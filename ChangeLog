@@ -1,3 +1,29 @@
+2015-04-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20150410
+	  Merge with NetBSD make, pick up
+	  o document different handling of '-' in jobs mode vs compat
+	  o fix jobs mode so that '-' only applies to whole job
+	    when shell lacks hasErrCtl
+	  o meta.c: use separate vars to track lcwd and latestdir (read)
+	    per process
+	
+2015-04-01  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20150401
+	  Merge with NetBSD make, pick up
+	  o meta.c: close meta file in child
+	
+	* Makefile: use BINDIR.bmake if set.
+	  Same for MANDIR and SHAREDIR
+	  Handy for testing release candidates
+	  in various environments.
+	
+2015-03-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* move initialization of savederr to block where it is used
+	  to avoid spurious warning from gcc5
+
 2014-11-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (MAKE_VERSION): 20141111

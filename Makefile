@@ -1,7 +1,7 @@
-#	$Id: Makefile,v 1.30 2014/11/11 15:57:11 sjg Exp $
+#	$Id: Makefile,v 1.34 2015/04/10 17:47:42 sjg Exp $
 
 # Base version on src date
-MAKE_VERSION= 20141111
+MAKE_VERSION= 20150410
 
 PROG=	bmake
 
@@ -180,9 +180,9 @@ COPTS.parse.c += -Wno-format-nonliteral
 COPTS.var.c += -Wno-format-nonliteral
 
 # Force these
-SHAREDIR= ${prefix}/share
-BINDIR= ${prefix}/bin
-MANDIR= ${SHAREDIR}/man
+SHAREDIR= ${SHAREDIR.bmake:U${prefix}/share}
+BINDIR= ${BINDIR.bmake:U${prefix}/bin}
+MANDIR= ${MANDIR.bmake:U${SHAREDIR}/man}
 
 .if !exists(.depend)
 ${OBJS}: config.h
