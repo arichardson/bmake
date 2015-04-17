@@ -1,3 +1,12 @@
+2015-04-16  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20150411
+	  bump version
+	
+	* own.mk: put AUTO_OBJ in OPTIONS_DEFAULT_NO rather than YES.
+	  it is here mainly for documentation purposes, since
+	  if using auto.obj.mk it is better done via sys.mk
+
 2015-04-01  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20150401
