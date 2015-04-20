@@ -1,4 +1,4 @@
-/*	$NetBSD: job.c,v 1.178 2015/04/09 18:21:01 sjg Exp $	*/
+/*	$NetBSD: job.c,v 1.180 2015/04/16 13:31:03 joerg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
@@ -70,14 +70,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: job.c,v 1.178 2015/04/09 18:21:01 sjg Exp $";
+static char rcsid[] = "$NetBSD: job.c,v 1.180 2015/04/16 13:31:03 joerg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)job.c	8.2 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: job.c,v 1.178 2015/04/09 18:21:01 sjg Exp $");
+__RCSID("$NetBSD: job.c,v 1.180 2015/04/16 13:31:03 joerg Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -1894,16 +1894,16 @@ end_loop:
 		(void)fflush(stdout);
 	    }
 	}
-	if (i < max - 1) {
-	    /* shift the remaining characters down */
-	    (void)memcpy(job->outBuf, &job->outBuf[i + 1], max - (i + 1));
+	/*
+	 * max is the last offset still in the buffer. Move any remaining
+	 * characters to the start of the buffer and update the end marker
+	 * curPos.
+	 */
+	if (i < max) {
+	    (void)memmove(job->outBuf, &job->outBuf[i + 1], max - (i + 1));
 	    job->curPos = max - (i + 1);
-
 	} else {
-	    /*
-	     * We have written everything out, so we just start over
-	     * from the start of the buffer. No copying. No nothing.
-	     */
+	    assert(i == max);
 	    job->curPos = 0;
 	}
     }

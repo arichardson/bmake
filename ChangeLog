@@ -1,3 +1,12 @@
+2015-04-18  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20150418
+	  Merge with NetBSD make, pick up
+	  o job.c: use memmove() rather than memcpy()
+
+	* unit-tests/varshell.mk: SunOS cannot handle the TERMINATED_BY_SIGNAL
+	  case, so skip it.
+
 2015-04-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (MAKE_VERSION): 20150411
