@@ -1,3 +1,13 @@
+2015-09-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (MAKE_VERSION): 20150910
+	  Merge with NetBSD make, pick up
+	  o main.c: with -w print Enter/Leaving messages for objdir too
+	    if necessary.
+	  o centralize shell metachar handling
+	
+	* FILES: add metachar.[ch]
+
 2015-06-06  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (MAKE_VERSION): 20150606
