@@ -1,3 +1,13 @@
+2015-10-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20151010
+
+2015-10-02  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.stage.mk: use staging: ${STAGE_TARGETS:...
+	  to have stage_lins run last in non-jobs mode.
+	  Use .ORDER only for jobs mode.
+
 2015-09-02  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* rst2htm.mk: allow for per target flags etc.

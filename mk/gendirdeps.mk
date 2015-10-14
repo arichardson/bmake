@@ -1,4 +1,4 @@
-# $Id: gendirdeps.mk,v 1.28 2015/06/16 06:28:46 sjg Exp $
+# $Id: gendirdeps.mk,v 1.29 2015/10/03 05:00:46 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -157,7 +157,7 @@ M2D_OBJROOTS += ${SB_BACKING_SB}/${SB_OBJPREFIX}
 .endif
 
 # we are only interested in the dirs
-# sepecifically those we read something from.
+# specifically those we read something from.
 # we canonicalize them to keep things simple
 # if we are using a split-fs sandbox, it gets a little messier.
 _objtop := ${_OBJTOP:tA}
