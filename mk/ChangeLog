@@ -1,3 +1,10 @@
+2015-10-20  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20151020
+	
+	* dirdeps.mk: Add logic for 
+	  make -f dirdeps.mk some/dir.${TARGET_SPEC}
+
 2015-10-14  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20151010
