@@ -1,3 +1,9 @@
+2015-10-23  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20151022
+
+	* sys.mk: BSD/OS does not have 'type' as a shell builtin.
+
 2015-10-20  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20151020

@@ -1902,6 +1902,8 @@ PrintOnError(GNode *gn, const char *s)
 	    printf("%s", cp);
 	free(cp);
     }
+    fflush(stdout);
+
     /*
      * Finally, see if there is a .ERROR target, and run it if so.
      */

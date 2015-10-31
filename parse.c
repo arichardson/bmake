@@ -508,7 +508,11 @@ loadfile(const char *path, int fd)
 #ifdef HAVE_MMAP
 	if (load_getsize(fd, &lf->len) == SUCCESS) {
 		/* found a size, try mmap */
+#ifdef _SC_PAGESIZE
 		pagesize = sysconf(_SC_PAGESIZE);
+#else
+		pagesize = 0;
+#endif
 		if (pagesize <= 0) {
 			pagesize = 0x1000;
 		}

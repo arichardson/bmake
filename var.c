@@ -129,7 +129,6 @@ __RCSID("$NetBSD: var.c,v 1.199 2015/10/20 21:30:57 sjg Exp $");
 #include    <regex.h>
 #endif
 #include    <ctype.h>
-#include    <inttypes.h>
 #include    <stdlib.h>
 #include    <limits.h>
 #include    <time.h>
@@ -2305,7 +2304,7 @@ VarHash(char *str)
     Buffer         buf;
     size_t         len, len2;
     unsigned char  *ustr = (unsigned char *)str;
-    uint32_t       h, k, c1, c2;
+    unsigned int   h, k, c1, c2;
 
     h  = 0x971e137bU;
     c1 = 0x95543787U;

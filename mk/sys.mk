@@ -1,4 +1,4 @@
-# $Id: sys.mk,v 1.36 2014/05/11 00:30:19 sjg Exp $
+# $Id: sys.mk,v 1.38 2015/10/31 00:52:49 sjg Exp $
 #
 #	@(#) Copyright (c) 2003-2009, Simon J. Gerraty
 #
@@ -75,8 +75,12 @@ M_L_TARGETS = ${M_ListToMatch:S,V,_TARGETS,}
 M_ListToSkip= O:u:ts::S,:,:N,g:S,^,N,
 
 # type should be a builtin in any sh since about 1980,
+# but sadly there are exceptions!
+.if ${.MAKE.OS:Unknown:NBSD/OS} == ""
+_type_sh = which
+.endif
 # AUTOCONF := ${autoconf:L:${M_whence}}
-M_type = @x@(type $$x 2> /dev/null); echo;@:sh:[0]:N* found*:[@]:C,[()],,g
+M_type = @x@(${_type_sh:Utype} $$x) 2> /dev/null; echo;@:sh:[0]:N* found*:[@]:C,[()],,g
 M_whence = ${M_type}:M/*:[1]
 
 # convert a path to a valid shell variable
