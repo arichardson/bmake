@@ -1,4 +1,4 @@
-.\"	$NetBSD: make.1,v 1.249 2015/06/05 07:33:40 wiz Exp $
+.\"	$NetBSD: make.1,v 1.253 2016/02/20 01:19:03 sjg Exp $
 .\"
 .\" Copyright (c) 1990, 1993
 .\"	The Regents of the University of California.  All rights reserved.
@@ -29,7 +29,7 @@
 .\"
 .\"	from: @(#)make.1	8.4 (Berkeley) 3/19/94
 .\"
-.Dd June 4, 2015
+.Dd February 19, 2016
 .Dt MAKE 1
 .Os
 .Sh NAME
@@ -941,6 +941,19 @@ The process-id of
 .It Va .MAKE.PPID
 The parent process-id of
 .Nm .
+.It Va .MAKE.SAVE_DOLLARS
+value should be a boolen that controls wether
+.Ql $$
+are preserved when doing
+.Ql :=
+assignments.
+The default is false, for backwards compatability.
+Set to true for compatability with other makes.
+If set to false,
+.Ql $$
+becomes
+.Ql $
+per normal evaluation rules.
 .It Va MAKE_PRINT_VAR_ON_ERROR
 When
 .Nm
@@ -1530,11 +1543,19 @@ For compatibility with other versions of
 .Nm
 .Ql include file ...
 is also accepted.
+.Pp
 If the include statement is written as
 .Cm .-include
 or as
 .Cm .sinclude
 then errors locating and/or opening include files are ignored.
+.Pp
+If the include statement is written as
+.Cm .dinclude
+not only are errors locating and/or opening include files ignored,
+but stale dependencies within the included file will be ignored
+just like
+.Va .MAKE.DEPENDFILE .
 .Pp
 Conditional expressions are also preceded by a single dot as the first
 character of a line.
@@ -1571,6 +1592,10 @@ This allows exporting a value to the environment which is different from that
 used by
 .Nm
 internally.
+.It Ic .export-literal Ar variable ...
+The same as
+.Ql .export-env ,
+except that variables in the value are not expanded.
 .It Ic .info Ar message
 The message is printed along with the name of the makefile and line number.
 .It Ic .undef Ar variable

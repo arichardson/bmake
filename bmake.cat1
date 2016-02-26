@@ -607,6 +607,13 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      _._M_A_K_E_._P_P_I_D      The parent process-id of bbmmaakkee.
 
+     _._M_A_K_E_._S_A_V_E___D_O_L_L_A_R_S
+                     value should be a boolen that controls wether `$$' are
+                     preserved when doing `:=' assignments.  The default is
+                     false, for backwards compatability.  Set to true for com-
+                     patability with other makes.  If set to false, `$$'
+                     becomes `$' per normal evaluation rules.
+
      _M_A_K_E___P_R_I_N_T___V_A_R___O_N___E_R_R_O_R
                      When bbmmaakkee stops due to an error, it prints its name and
                      the value of `_._C_U_R_D_I_R' as well as the value of any vari-
@@ -957,8 +964,14 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
      used, the including makefile's directory and any directories specified
      using the --II option are searched before the system makefile directory.
      For compatibility with other versions of bbmmaakkee `include file ...' is also
-     accepted.  If the include statement is written as ..--iinncclluuddee or as
-     ..ssiinncclluuddee then errors locating and/or opening include files are ignored.
+     accepted.
+
+     If the include statement is written as ..--iinncclluuddee or as ..ssiinncclluuddee then
+     errors locating and/or opening include files are ignored.
+
+     If the include statement is written as ..ddiinncclluuddee not only are errors
+     locating and/or opening include files ignored, but stale dependencies
+     within the included file will be ignored just like _._M_A_K_E_._D_E_P_E_N_D_F_I_L_E.
 
      Conditional expressions are also preceded by a single dot as the first
      character of a line.  The possible conditionals are as follows:
@@ -981,6 +994,10 @@ IINNCCLLUUDDEE SSTTAATTEEMMEENNTTSS,, CCOONNDDIITTIIOO
              The same as `.export', except that the variable is not appended
              to _._M_A_K_E_._E_X_P_O_R_T_E_D.  This allows exporting a value to the environ-
              ment which is different from that used by bbmmaakkee internally.
+
+     ..eexxppoorrtt--lliitteerraall _v_a_r_i_a_b_l_e _._._.
+             The same as `.export-env', except that variables in the value are
+             not expanded.
 
      ..iinnffoo _m_e_s_s_a_g_e
              The message is printed along with the name of the makefile and
@@ -1452,4 +1469,4 @@ BBUUGGSS
 
      There is no way of escaping a space character in a filename.
 
-NetBSD 5.1                       June 4, 2015                       NetBSD 5.1
+NetBSD 5.1                     February 19, 2016                    NetBSD 5.1
