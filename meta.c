@@ -1,4 +1,4 @@
-/*      $NetBSD: meta.c,v 1.47 2016/02/18 20:33:40 sjg Exp $ */
+/*      $NetBSD: meta.c,v 1.53 2016/03/07 21:45:43 christos Exp $ */
 
 /*
  * Implement 'meta' mode.
@@ -6,7 +6,7 @@
  * --sjg
  */
 /*
- * Copyright (c) 2009-2010, Juniper Networks, Inc.
+ * Copyright (c) 2009-2016, Juniper Networks, Inc.
  * Portions Copyright (c) 2009, John Birrell.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,9 @@ char * dirname(char *);
 
 static BuildMon Mybm;			/* for compat */
 static Lst metaBailiwick;		/* our scope of control */
+static char *metaBailiwickStr;		/* string storage for the list */
 static Lst metaIgnorePaths;		/* paths we deliberately ignore */
+static char *metaIgnorePathsStr;	/* string storage for the list */
 
 #ifndef MAKE_META_IGNORE_PATHS
 #define MAKE_META_IGNORE_PATHS ".MAKE.META.IGNORE_PATHS"
@@ -476,9 +478,6 @@ meta_create(BuildMon *pbm, GNode *gn)
 
     fflush(stdout);
 
-    if (strcmp(cp, makeDependfile) == 0)
-	goto out;
-
     if (!writeMeta)
 	/* Don't create meta data. */
 	goto out;
@@ -604,10 +603,10 @@ meta_mode_init(const char *make_mode)
      * We consider ourselves master of all within ${.MAKE.META.BAILIWICK}
      */
     metaBailiwick = Lst_Init(FALSE);
-    cp = Var_Subst(NULL, "${.MAKE.META.BAILIWICK:O:u:tA}", VAR_GLOBAL,
-		   VARF_WANTRES);
-    if (cp) {
-	str2Lst_Append(metaBailiwick, cp, NULL);
+    metaBailiwickStr = Var_Subst(NULL, "${.MAKE.META.BAILIWICK:O:u:tA}",
+	VAR_GLOBAL, VARF_WANTRES);
+    if (metaBailiwickStr) {
+	str2Lst_Append(metaBailiwick, metaBailiwickStr, NULL);
     }
     /*
      * We ignore any paths that start with ${.MAKE.META.IGNORE_PATHS}
@@ -615,11 +614,11 @@ meta_mode_init(const char *make_mode)
     metaIgnorePaths = Lst_Init(FALSE);
     Var_Append(MAKE_META_IGNORE_PATHS,
 	       "/dev /etc /proc /tmp /var/run /var/tmp ${TMPDIR}", VAR_GLOBAL);
-    cp = Var_Subst(NULL,
+    metaIgnorePathsStr = Var_Subst(NULL,
 		   "${" MAKE_META_IGNORE_PATHS ":O:u:tA}", VAR_GLOBAL,
 		   VARF_WANTRES);
-    if (cp) {
-	str2Lst_Append(metaIgnorePaths, cp, NULL);
+    if (metaIgnorePathsStr) {
+	str2Lst_Append(metaIgnorePaths, metaIgnorePathsStr, NULL);
     }
 }
 
@@ -688,9 +687,9 @@ meta_job_error(Job *job, GNode *gn, int flags, int status)
 
     if (job != NULL) {
 	pbm = &job->bm;
-    } else {
 	if (!gn)
 	    gn = job->node;
+    } else {
 	pbm = &Mybm;
     }
     if (pbm->mfp != NULL) {
@@ -704,7 +703,7 @@ meta_job_error(Job *job, GNode *gn, int flags, int status)
     }
     getcwd(cwd, sizeof(cwd));
     Var_Set(".ERROR_CWD", cwd, VAR_GLOBAL, 0);
-    if (pbm && pbm->meta_fname[0]) {
+    if (pbm->meta_fname[0]) {
 	Var_Set(".ERROR_META_FILE", pbm->meta_fname, VAR_GLOBAL, 0);
     }
     meta_job_finish(job);
@@ -778,6 +777,15 @@ meta_job_finish(Job *job)
 	pbm->mfp = NULL;
 	pbm->meta_fname[0] = '\0';
     }
+}
+
+void
+meta_finish(void)
+{
+    Lst_Destroy(metaBailiwick, NULL);
+    free(metaBailiwickStr);
+    Lst_Destroy(metaIgnorePaths, NULL);
+    free(metaIgnorePathsStr);
 }
 
 /*
@@ -1375,7 +1383,6 @@ meta_oodate(GNode *gn, Boolean oodate)
 		fprintf(debug_file, "%s: missing files: %s...\n",
 			fname, (char *)Lst_Datum(Lst_First(missingFiles)));
 	    oodate = TRUE;
-	    Lst_Destroy(missingFiles, (FreeProc *)free);
 	}
     } else {
 	if ((gn->type & OP_META)) {
@@ -1384,6 +1391,9 @@ meta_oodate(GNode *gn, Boolean oodate)
 	    oodate = TRUE;
 	}
     }
+
+    Lst_Destroy(missingFiles, (FreeProc *)free);
+
     if (oodate && needOODATE) {
 	/*
 	 * Target uses .OODATE which is empty; or we wouldn't be here.
