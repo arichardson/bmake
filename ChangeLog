@@ -1,3 +1,9 @@
+2016-05-28  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20160528
+
+	* boot-strap, make-bootstrap.sh.in: Makefile now uses _MAKE_VERSION 
+
 2016-05-12  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20160512
