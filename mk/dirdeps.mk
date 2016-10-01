@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.73 2016/08/15 19:28:13 sjg Exp $
+# $Id: dirdeps.mk,v 1.75 2016/09/30 23:47:23 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -305,8 +305,10 @@ SKIP_DIR.host += ${SKIP_HOSTDIR}
 
 DEP_SKIP_DIR = ${SKIP_DIR} \
 	${SKIP_DIR.${DEP_TARGET_SPEC}:U} \
-	${SKIP_DIR.${DEP_MACHINE}:U} \
-	${SKIP_DIRDEPS.${DEP_MACHINE}:U}
+	${TARGET_SPEC_VARS:@v@${SKIP_DIR.${DEP_$v}:U}@} \
+	${SKIP_DIRDEPS.${DEP_TARGET_SPEC}:U} \
+	${TARGET_SPEC_VARS:@v@${SKIP_DIRDEPS.${DEP_$v}:U}@}
+
 
 NSkipDir = ${DEP_SKIP_DIR:${M_ListToSkip}}
 
@@ -522,7 +524,7 @@ _build_dirs += ${_machines:N${DEP_TARGET_SPEC}:@m@${_CURDIR}.$m@}
 # these we reset each time through as they can depend on DEP_MACHINE
 DEP_DIRDEPS_FILTER = \
 	${DIRDEPS_FILTER.${DEP_TARGET_SPEC}:U} \
-	${DIRDEPS_FILTER.${DEP_MACHINE}:U} \
+	${TARGET_SPEC_VARS:@v@${DIRDEPS_FILTER.${DEP_$v}:U}@} \
 	${DIRDEPS_FILTER:U} 
 .if empty(DEP_DIRDEPS_FILTER)
 # something harmless
@@ -696,7 +698,7 @@ bootstrap-this:	.NOTMAIN
 .if ${_src:T} != ${.MAKE.DEPENDFILE_PREFIX:T}
 	(cd ${.CURDIR} && sed ${.MAKE.DEPENDFILE_BOOTSTRAP_SED} ${_src} > ${_want})
 .else
-	cp ${.CURDIR}/${_src} ${_want}
+	cp ${.CURDIR}/${_src:T} ${_want}
 .endif
 
 # create Makefile.depend* for this dir and its dependencies

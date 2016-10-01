@@ -1,3 +1,20 @@
+2016-09-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* dirdeps.mk: use TARGET_SPEC_VARS to qualify components added to
+	  DEP_SKIP_DIR and DEP_DIRDEPS_FILTER
+
+	* sys.mk: extract some bits to sys.{debug,vars}.mk
+	  for easier re-use by others.
+
+2016-08-19  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.sys.mk (META_COOKIE_TOUCH): use ${.OBJDIR}/${.TARGET:T} as default
+
+2016-09-23  Simon Gerraty  <sjg@sjg-mba13>
+
+	* lib.mk: Use ${PICO} for extension for PIC objects.
+	  default to .pico (like NetBSD) safe on case insensitive filesystem.
+
 2016-08-15  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20160815
