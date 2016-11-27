@@ -1,3 +1,28 @@
+2016-11-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20161126
+
+	* dirdeps.mk: set DIRDEPS_CACHE before we include local.dirdeps.mk
+	  so it can add dependencies.
+
+2016-10-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* dirdeps.mk: set DEP_* before we expand .MAKE.DEPENDFILE_PREFERENCE
+	  do that they can influence the result correctly.
+
+	* dirdeps.mk (${DIRDEPS_CACHE}): make sure we pass on TARGET_SPEC
+
+	* dirdeps.mk: Add ONLY_TARGET_SPEC_LIST and NOT_TARGET_SPEC_LIST
+	  similar to ONLY_MACHINE_LIST and NOT_MACHINE_LIST
+
+2016-10-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* dirdeps.mk: remove dependence on jot (normal situations anyway).
+	  Before we read another Makefile.depend* set DEP_* vars from
+	  _DEP_TARGET_SPEC in case it uses any of them with :=
+	  When bootstrapping, trim any ,* from extention of chosen _src
+	  Makefile.depend* to get the machine value we subst for.
+
 2016-09-30  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* dirdeps.mk: use TARGET_SPEC_VARS to qualify components added to

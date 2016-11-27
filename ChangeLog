@@ -1,3 +1,9 @@
+2016-11-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20161126
+	  Merge with NetBSD make, pick up
+	  o make.c: Make_OODate: report src node name if path not set
+
 2016-09-26  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20160926
