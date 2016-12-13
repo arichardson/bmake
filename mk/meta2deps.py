@@ -37,7 +37,7 @@ We only pay attention to a subset of the information in the
 
 """
 RCSid:
-	$Id: meta2deps.py,v 1.21 2016/10/13 22:23:40 sjg Exp $
+	$Id: meta2deps.py,v 1.22 2016/12/12 19:07:42 sjg Exp $
 
 	Copyright (c) 2011-2013, Juniper Networks, Inc.
 	All rights reserved.
@@ -434,7 +434,6 @@ class MetaFile:
             pid = int(w[1])
             if pid != last_pid:
                 if last_pid:
-                    pid_cwd[last_pid] = cwd
                     pid_last_dir[last_pid] = self.last_dir
                 cwd = getv(pid_cwd, pid, self.cwd)
                 self.last_dir = getv(pid_last_dir, pid, self.cwd)
@@ -451,7 +450,8 @@ class MetaFile:
                 cwd = abspath(w[2], cwd, None, self.debug, self.debug_out)
                 if cwd.endswith('/.'):
                     cwd = cwd[0:-2]
-                self.last_dir = cwd
+                self.last_dir = pid_last_dir[pid] = cwd
+                pid_cwd[pid] = cwd
                 if self.debug > 1:
                     print("cwd=", cwd, file=self.debug_out)
                 continue

@@ -1,3 +1,20 @@
+2016-12-12  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20161212
+	
+	* meta2deps.py: set pid_cwd[pid] when we process 'C'hdir, 
+	rather than when we detect pid change.
+
+2016-12-07  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20161207
+
+	* meta.stage.mk: add stage_as_and_symlink for staging packages.
+	  We build foo.tgz stage_as foo-${VERSION}.tgz but want to be able
+	  to use foo.tgz to reference the latest staged version - so we
+	  make foo.tgz a symlink to it.
+	  Using a target to do both operations ensures we stay in sync.
+	
 2016-11-26  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20161126
@@ -31,14 +48,14 @@
 	* sys.mk: extract some bits to sys.{debug,vars}.mk
 	  for easier re-use by others.
 
-2016-08-19  Simon J. Gerraty  <sjg@bad.crufty.net>
-
-	* meta.sys.mk (META_COOKIE_TOUCH): use ${.OBJDIR}/${.TARGET:T} as default
-
 2016-09-23  Simon Gerraty  <sjg@sjg-mba13>
 
 	* lib.mk: Use ${PICO} for extension for PIC objects.
 	  default to .pico (like NetBSD) safe on case insensitive filesystem.
+
+2016-08-19  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* meta.sys.mk (META_COOKIE_TOUCH): use ${.OBJDIR}/${.TARGET:T} as default
 
 2016-08-15  Simon J. Gerraty  <sjg@bad.crufty.net>
 
