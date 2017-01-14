@@ -789,16 +789,16 @@ VVAARRIIAABBLLEE AASSSSIIGGNNMMEENNTTSS
 
      ::RR   Replaces each word in the variable with everything but its suffix.
 
-     ::ggmmttiimmee
-          The value is a format string for strftime(3), using the current
-          gmtime(3).
+     ::ggmmttiimmee[[==uuttcc]]
+          The value is a format string for strftime(3), using gmtime(3).  If a
+          _u_t_c value is not provided or is 0, the current time is used.
 
      ::hhaasshh
           Compute a 32-bit hash of the value and encode it as hex digits.
 
-     ::llooccaallttiimmee
-          The value is a format string for strftime(3), using the current
-          localtime(3).
+     ::llooccaallttiimmee[[==uuttcc]]
+          The value is a format string for strftime(3), using localtime(3).
+          If a _u_t_c value is not provided or is 0, the current time is used.
 
      ::ttAA  Attempt to convert variable to an absolute path using realpath(3),
           if that fails, the value is unchanged.
@@ -1506,4 +1506,4 @@ BBUUGGSS
 
      There is no way of escaping a space character in a filename.
 
-NetBSD 5.1                      August 26, 2016                     NetBSD 5.1
+NetBSD 7.0_STABLE              January 14, 2017              NetBSD 7.0_STABLE

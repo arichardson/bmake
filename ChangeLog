@@ -1,3 +1,9 @@
+2017-01-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170114
+	  Merge with NetBSD make, pick up
+	  o var.c: allow specifying the utc value used by :{gm,local}time
+
 2016-12-12  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20161212

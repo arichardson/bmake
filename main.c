@@ -1933,7 +1933,7 @@ PrintAddr(void *a, void *b)
 
 
 static int
-addErrorCMD(void *cmdp, void *gnp)
+addErrorCMD(void *cmdp, void *gnp MAKE_ATTR_UNUSED)
 {
     if (cmdp == NULL)
 	return 1;			/* stop */
