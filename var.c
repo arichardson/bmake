@@ -1,4 +1,4 @@
-/*	$NetBSD: var.c,v 1.209 2017/01/14 22:58:04 sjg Exp $	*/
+/*	$NetBSD: var.c,v 1.213 2017/02/01 18:39:27 sjg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -69,14 +69,14 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: var.c,v 1.209 2017/01/14 22:58:04 sjg Exp $";
+static char rcsid[] = "$NetBSD: var.c,v 1.213 2017/02/01 18:39:27 sjg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
 static char sccsid[] = "@(#)var.c	8.3 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: var.c,v 1.209 2017/01/14 22:58:04 sjg Exp $");
+__RCSID("$NetBSD: var.c,v 1.213 2017/02/01 18:39:27 sjg Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -2139,6 +2139,51 @@ VarUniq(const char *str)
     return Buf_Destroy(&buf, FALSE);
 }
 
+/*-
+ *-----------------------------------------------------------------------
+ * VarRange --
+ *	Return an integer sequence
+ *
+ * Input:
+ *	str		String whose words provide default range
+ *	ac		range length, if 0 use str words
+ *
+ * Side Effects:
+ *	None.
+ *
+ *-----------------------------------------------------------------------
+ */
+static char *
+VarRange(const char *str, int ac)
+{
+    Buffer	  buf;		    /* Buffer for new string */
+    char	  tmp[32];	    /* each element */
+    char 	**av;		    /* List of words to affect */
+    char 	 *as;		    /* Word list memory */
+    int 	  i, n;
+
+    Buf_Init(&buf, 0);
+    if (ac > 0) {
+	as = NULL;
+	av = NULL;
+    } else {
+	av = brk_string(str, &ac, FALSE, &as);
+    }
+    for (i = 0; i < ac; i++) {
+	n = snprintf(tmp, sizeof(tmp), "%d", 1 + i);
+	if (n >= (int)sizeof(tmp))
+	    break;
+	Buf_AddBytes(&buf, n, tmp);
+	if (i != ac - 1)
+	    Buf_AddByte(&buf, ' ');
+    }
+
+    free(as);
+    free(av);
+
+    return Buf_Destroy(&buf, FALSE);
+}
+
 
 /*-
  *-----------------------------------------------------------------------
@@ -2484,6 +2529,7 @@ VarStrftime(const char *fmt, int zulu, time_t utc)
     (strncmp(s, want, n) == 0 && (s[n] == endc || s[n] == ':'))
 #define STRMOD_MATCHX(s, want, n) \
     (strncmp(s, want, n) == 0 && (s[n] == endc || s[n] == ':' || s[n] == '='))
+#define CHARMOD_MATCH(c) (c == endc || c == ':')
 
 static char *
 ApplyModifiers(char *nstr, const char *tstr,
@@ -2694,6 +2740,28 @@ ApplyModifiers(char *nstr, const char *tstr,
 		free(loop.str);
 		break;
 	    }
+	case '_':			/* remember current value */
+	    cp = tstr + 1;	/* make sure it is set */
+	    if (STRMOD_MATCHX(tstr, "_", 1)) {
+		if (tstr[1] == '=') {
+		    char *np;
+		    int n;
+
+		    cp++;
+		    n = strcspn(cp, ":)}");
+		    np = bmake_strndup(cp, n+1);
+		    np[n] = '\0';
+		    cp = tstr + 2 + n;
+		    Var_Set(np, nstr, ctxt, 0);
+		    free(np);
+		} else {
+		    Var_Set("_", nstr, ctxt, 0);
+		}
+		newStr = nstr;
+		termc = *cp;
+		break;
+	    }
+	    goto default_case;
 	case 'D':
 	case 'U':
 	    {
@@ -3456,6 +3524,23 @@ ApplyModifiers(char *nstr, const char *tstr,
 		newStr = VarModify(ctxt, &parsestate, nstr, VarRoot,
 				   NULL);
 		cp = tstr + 1;
+		termc = *cp;
+		break;
+	    }
+	    goto default_case;
+	case 'r':
+	    cp = tstr + 1;	/* make sure it is set */
+	    if (STRMOD_MATCHX(tstr, "range", 5)) {
+		int n;
+		
+		if (tstr[5] == '=') {
+		    n = strtoul(&tstr[6], &ep, 10);
+		    cp = ep;
+		} else {
+		    n = 0;
+		    cp = tstr + 5;
+		}
+		newStr = VarRange(nstr, n);
 		termc = *cp;
 		break;
 	    }

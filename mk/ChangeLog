@@ -1,3 +1,14 @@
+2017-01-30  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20170130
+
+	* dirdeps.mk: use :range if we can.
+
+	* sys.vars.mk: provide M_cmpv if MAKE_VERSION >= 20170130
+
+	* meta2deps.py: clean paths without using realpath() where possible.
+	  fix sort_unique.
+
 2016-12-12  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20161212
