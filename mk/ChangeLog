@@ -1,3 +1,23 @@
+2017-03-01  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20170301
+
+	* dirdeps.mk (_build_all_dirs): update this outside test for empty
+	  DIRDEPS.
+
+	* meta.stage.mk: allow multiple inclusion to the extent it makes
+	  sense.
+
+2017-02-14  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* prog.mk (install_links): depends on realinstall
+
+2017-02-12  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20170212
+
+	* dpadd.mk: avoid applying :T:R twice to DPLIBS entries
+
 2017-01-30  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* install-mk (MK_VERSION): 20170130

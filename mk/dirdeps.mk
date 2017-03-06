@@ -1,4 +1,4 @@
-# $Id: dirdeps.mk,v 1.85 2017/01/31 08:10:32 sjg Exp $
+# $Id: dirdeps.mk,v 1.86 2017/03/01 20:26:51 sjg Exp $
 
 # Copyright (c) 2010-2013, Juniper Networks, Inc.
 # All rights reserved.
@@ -614,10 +614,10 @@ _build_dirs += \
 # qualify everything now
 _build_dirs := ${_build_dirs:${M_dep_qual_fixes:ts:}:O:u}
 
+.endif				# empty DIRDEPS
+
 _build_all_dirs += ${_build_dirs}
 _build_all_dirs := ${_build_all_dirs:O:u}
-
-.endif				# empty DIRDEPS
 
 # Normally if doing make -V something,
 # we do not want to waste time chasing DIRDEPS
