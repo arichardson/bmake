@@ -1,8 +1,14 @@
+2017-03-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170311
+	  Merge with NetBSD make, pick up
+          o main.c: only use -C arg "as is" if it starts with '/'.
+
 2017-03-01  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20170301
 	  Merge with NetBSD make, pick up
-	  o main.c: use -C arg as is rather than getcwd()
+	  o main.c: use -C arg "as is" rather than getcwd()
 	    if they identify the same directory.
 	  o parse.c: ensure loadfile buffer is \n terminated in non-mmap case
 
