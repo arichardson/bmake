@@ -1,3 +1,10 @@
+2017-03-26  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170326
+	  Merge with NetBSD make, pick up
+	  o main.c: purge relative paths from realpath cache when .OBJDIR
+	    is changed.
+
 2017-03-11  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20170311
