@@ -1,3 +1,17 @@
+2017-04-13  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170413
+	  Merge with NetBSD make, pick up
+	  o main.c: when setting .OBJDIR ignore '$' in paths.
+
+	* job.c: use MALLOC_OPTIONS to set malloc_options.
+
+2017-04-11  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170411
+	  Merge with NetBSD make, pick up
+	  o str.c: Str_Match: allow [^a-z] to behave as expected.
+
 2017-03-26  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20170326
