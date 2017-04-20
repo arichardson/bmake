@@ -1,3 +1,10 @@
+2017-04-20  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170420
+	  Merge with NetBSD make, pick up
+	  o main.c: only use -C arg "as is" if it contains no 
+	    relative component.
+
 2017-04-18  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20170418
