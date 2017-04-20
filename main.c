@@ -1,4 +1,4 @@
-/*	$NetBSD: main.c,v 1.260 2017/04/13 13:55:23 christos Exp $	*/
+/*	$NetBSD: main.c,v 1.263 2017/04/19 04:54:17 sjg Exp $	*/
 
 /*
  * Copyright (c) 1988, 1989, 1990, 1993
@@ -69,7 +69,7 @@
  */
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: main.c,v 1.260 2017/04/13 13:55:23 christos Exp $";
+static char rcsid[] = "$NetBSD: main.c,v 1.263 2017/04/19 04:54:17 sjg Exp $";
 #else
 #include <sys/cdefs.h>
 #ifndef lint
@@ -81,7 +81,7 @@ __COPYRIGHT("@(#) Copyright (c) 1988, 1989, 1990, 1993\
 #if 0
 static char sccsid[] = "@(#)main.c	8.3 (Berkeley) 3/19/94";
 #else
-__RCSID("$NetBSD: main.c,v 1.260 2017/04/13 13:55:23 christos Exp $");
+__RCSID("$NetBSD: main.c,v 1.263 2017/04/19 04:54:17 sjg Exp $");
 #endif
 #endif /* not lint */
 #endif
@@ -187,6 +187,7 @@ static const char *	tracefile;
 static void		MainParseArgs(int, char **);
 static int		ReadMakefile(const void *, const void *);
 static void		usage(void) MAKE_ATTR_DEAD;
+static void		purge_cached_realpaths(void);
 
 static Boolean		ignorePWD;	/* if we use -C, PWD is meaningless */
 static char objdir[MAXPATHLEN + 1];	/* where we chdir'ed to */
@@ -336,7 +337,7 @@ parse_debug_options(const char *argvalue)
 				goto debug_setbuf;
 			}
 			len = strlen(modules);
-			fname = malloc(len + 20);
+			fname = bmake_malloc(len + 20);
 			memcpy(fname, modules, len + 1);
 			/* Let the filename be modified by the pid */
 			if (strcmp(fname + len - 3, ".%d") == 0)
@@ -732,8 +733,10 @@ Main_SetObjdir(const char *fmt, ...)
 	va_end(ap);
 
 	if (path[0] != '/') {
-		snprintf(buf, MAXPATHLEN, "%s/%s", curdir, path);
-		path = buf;
+		char buf2[MAXPATHLEN + 1];
+		
+		snprintf(buf2, MAXPATHLEN, "%s/%s", curdir, path);
+		path = buf2;
 	}
 
 	/* look for the directory and try to chdir there */
@@ -746,7 +749,7 @@ Main_SetObjdir(const char *fmt, ...)
 			Var_Set(".OBJDIR", objdir, VAR_GLOBAL, 0);
 			setenv("PWD", objdir, 1);
 			Dir_InitDot();
-			cached_realpath(".OBJDIR", NULL); /* purge */
+			purge_cached_realpaths();
 			rc = TRUE;
 			if (enterFlag && strcmp(objdir, curdir) != 0)
 				enterFlagObj = TRUE;
@@ -1907,42 +1910,56 @@ usage(void)
 	exit(2);
 }
 
-
 /*
  * realpath(3) can get expensive, cache results...
  */
+static GNode *cached_realpaths = NULL;
+
+static GNode *
+get_cached_realpaths(void)
+{
+
+    if (!cached_realpaths) {
+	cached_realpaths = Targ_NewGN("Realpath");
+#ifndef DEBUG_REALPATH_CACHE
+	cached_realpaths->flags = INTERNAL;
+#endif
+    }
+
+    return cached_realpaths;
+}
+
+/* purge any relative paths */
+static void
+purge_cached_realpaths(void)
+{
+    GNode *cache = get_cached_realpaths();
+    Hash_Entry *he, *nhe;
+    Hash_Search hs;
+
+    he = Hash_EnumFirst(&cache->context, &hs);
+    while (he) {
+	nhe = Hash_EnumNext(&hs);
+	if (he->name[0] != '/') {
+	    if (DEBUG(DIR))
+		fprintf(stderr, "cached_realpath: purging %s\n", he->name);
+	    Hash_DeleteEntry(&cache->context, he);
+	}
+	he = nhe;
+    }
+}
+
 char *
 cached_realpath(const char *pathname, char *resolved)
 {
-    static GNode *cache;
+    GNode *cache;
     char *rp, *cp;
 
     if (!pathname || !pathname[0])
 	return NULL;
 
-    if (!cache) {
-	cache = Targ_NewGN("Realpath");
-#ifndef DEBUG_REALPATH_CACHE
-	cache->flags = INTERNAL;
-#endif
-    }
-    if (resolved == NULL && strcmp(pathname, ".OBJDIR") == 0) {
-	/* purge any relative paths */
-	Hash_Entry *he, *nhe;
-	Hash_Search hs;
+    cache = get_cached_realpaths();
 
-	he = Hash_EnumFirst(&cache->context, &hs);
-	while (he) {
-	    nhe = Hash_EnumNext(&hs);
-	    if (he->name[0] != '/') {
-		if (DEBUG(DIR))
-		    fprintf(stderr, "cached_realpath: purging %s\n", he->name);
-		Hash_DeleteEntry(&cache->context, he);
-	    }
-	    he = nhe;
-	}
-	return NULL;
-    }
     if ((rp = Var_Value(pathname, cache, &cp)) != NULL) {
 	/* a hit */
 	strlcpy(resolved, rp, MAXPATHLEN);
