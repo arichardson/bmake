@@ -1,3 +1,8 @@
+2017-05-08  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170505
+	  see mk/ChangeLog
+
 2017-05-05  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* parse.c: not everyone has stdint.h

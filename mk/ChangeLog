@@ -1,3 +1,9 @@
+2017-05-08  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* install-mk (MK_VERSION): 20170505
+
+	* meta2deps.py: fix botched indenation.
+
 2017-05-05  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* sys/*.mk: Remove setting of MAKE it is unnecessary and
