@@ -1,3 +1,9 @@
+2017-05-10  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* Makefile (_MAKE_VERSION): 20170510
+	  Merge with NetBSD make, pick up
+	  o main.c: Main_SetObjdir: ensure buf2 is in scope
+
 2017-05-08  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* Makefile (_MAKE_VERSION): 20170505
