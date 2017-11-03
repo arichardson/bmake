@@ -1,3 +1,19 @@
+2017-10-28  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* VERSION: 20171028
+	  Merge with NetBSD make, pick up
+	  o main.c: ignore empty MAKEOBJDIR
+
+	* Makefile.config.in:
+	  make @prefix@ @machine*@ and @default_sys_path@ defaults.
+
+2017-10-05  Simon J. Gerraty  <sjg@bad.crufty.net>
+
+	* VERSION: 20171005
+
+	* unit-tests/dotwait.mk: redirect stderr through pipe for more
+	  consistent result on some platforms.
+
 2017-08-13  Simon J. Gerraty  <sjg@bad.crufty.net>
 
 	* machine.sh: entry for AIX

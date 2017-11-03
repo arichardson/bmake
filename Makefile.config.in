@@ -2,12 +2,12 @@
 
 _MAKE_VERSION=@_MAKE_VERSION@
 
-prefix= @prefix@
+prefix?= @prefix@
 srcdir= @srcdir@
 CC?= @CC@
-MACHINE= @machine@
-MACHINE_ARCH= @machine_arch@
-DEFAULT_SYS_PATH= @default_sys_path@
+MACHINE?= @machine@
+MACHINE_ARCH?= @machine_arch@
+DEFAULT_SYS_PATH?= @default_sys_path@
 
 CPPFLAGS+= @CPPFLAGS@
 CFLAGS+= ${CPPFLAGS} @DEFS@
