@@ -22,6 +22,9 @@ configure.in
 dir.c
 dir.h
 dirname.c
+filemon/filemon.h
+filemon/filemon_dev.c
+filemon/filemon_ktrace.c
 find_lib.sh
 for.c
 getopt.c
@@ -94,7 +97,8 @@ suff.c
 targ.c
 trace.c
 trace.h
-unit-tests/Makefile.in
+unit-tests/Makefile
+unit-tests/Makefile.config.in
 unit-tests/comment.exp
 unit-tests/comment.mk
 unit-tests/cond1.exp
@@ -163,6 +167,8 @@ unit-tests/varcmd.exp
 unit-tests/varcmd.mk
 unit-tests/varmisc.exp
 unit-tests/varmisc.mk
+unit-tests/varmod-edge.exp
+unit-tests/varmod-edge.mk
 unit-tests/varquote.exp
 unit-tests/varquote.mk
 unit-tests/varshell.exp

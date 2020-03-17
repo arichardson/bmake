@@ -1,4 +1,4 @@
-# $Id: lib.mk,v 1.68 2018/01/26 20:08:16 sjg Exp $
+# $Id: lib.mk,v 1.69 2019/10/06 20:10:43 sjg Exp $
 
 .if !target(__${.PARSEFILE}__)
 __${.PARSEFILE}__:
@@ -170,13 +170,15 @@ LD_solib= lib${LIB}_pic.a
 .elif ${TARGET_OSNAME} == "Linux"
 SHLIB_LD = ${CC}
 # this is ambiguous of course
-LD_shared=-shared -Wl,"-h lib${LIB}.so.${SHLIB_MAJOR}"
+LD_shared=-shared -Wl,"-soname lib${LIB}.so.${SHLIB_MAJOR}"
 LD_solib= -Wl,--whole-archive lib${LIB}_pic.a -Wl,--no-whole-archive
+.if ${COMPILER_TYPE} == "gcc"
 # Linux uses GNU ld, which is a multi-pass linker
 # so we don't need to use lorder or tsort
 LD_objs = ${OBJS}
 LD_pobjs = ${POBJS}
 LD_sobjs = ${SOBJS}
+.endif
 .elif ${TARGET_OSNAME} == "Darwin"
 SHLIB_LD = ${CC}
 SHLIB_INSTALL_VERSION ?= ${SHLIB_MAJOR}

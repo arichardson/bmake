@@ -1,4 +1,4 @@
-# $Id: whats.mk,v 1.3 2017/10/19 06:09:14 sjg Exp $
+# $Id: whats.mk,v 1.4 2019/05/23 23:57:22 sjg Exp $
 #
 #	@(#) Copyright (c) 2014, Simon J. Gerraty
 #
@@ -24,17 +24,22 @@ what_build_thing?= ${PROG}
 # probably only makes sense for shared libs
 # and the plumbing needed varies depending on *lib.mk
 what_thing?= lib${LIB}
-.if !empty(SOBJS)
-_soe:= ${SOBJS:E:[1]}
-what_build_exts= ${_soe}
-SOBJS+= ${what_uuid}.${_soe}
-.endif
+.elif defined(SHLIB) && ${.MAKE.MAKEFILES:M*lib.mk} != ""
+# probably only makes sense for shared libs
+# and the plumbing needed varies depending on *lib.mk
+what_thing?= lib${SHLIB}
 .elif defined(KMOD) && ${.MAKE.MAKEFILES:M*kmod.mk} != ""
 what_thing?= ${KMOD}
 what_build_thing?= ${KMOD}.ko
 .endif
 
 .if !empty(what_thing)
+.if !empty(SOBJS)
+_soe:= ${SOBJS:E:[1]}
+what_build_exts= ${_soe}
+SOBJS+= ${what_uuid}.${_soe}
+.endif
+
 # a unique name that won't conflict with anything
 what_uuid = what_${what_thing}_${.CURDIR:T:hash}
 what_var = what_${.CURDIR:T:hash}
