@@ -169,6 +169,11 @@ Interix)
 	MACHINE=i386
 	MACHINE_ARCH=i386
 	;;
+SCO_SV)
+	OSREL=`uname -v`
+	OSMAJOR=`IFS=.; set $OSREL; echo $1`
+	MACHINE_ARCH=`uname -m`
+	;;
 UnixWare)
 	OSREL=`uname -v`
 	OSMAJOR=`IFS=.; set $OSREL; echo $1`
